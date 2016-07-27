@@ -158,6 +158,16 @@ function Crosshairs() {
             cross15.visible = false;
             crosses.push(cross15);
 
+            mapA = fileLoader.get("Crosshair16");
+
+            materialA = new THREE.SpriteMaterial({map: mapA});
+
+            cross16 = new THREE.Sprite(materialA);
+            cross16.position.set(0, 10, -40);
+            cross16.scale.set(6.0, 6.0, 1.0);
+            cross16.visible = false;
+            crosses.push(cross16);
+
             mapA = fileLoader.get("Crosshair");
 
             materialA = new THREE.SpriteMaterial({map: mapA});
@@ -168,14 +178,24 @@ function Crosshairs() {
             crossretro.visible = false;
             crosses.push(crossretro);
 
+            mapA = fileLoader.get("batman");
+
+            materialA = new THREE.SpriteMaterial({map: mapA});
+
+            batman = new THREE.Sprite(materialA);
+            batman.position.set(0, 10, -40);
+            batman.scale.set(10.0, 6.0, 1.0);
+            batman.visible = false;
+            crosses.push(batman);
+
             cross1.visible = true;
             ship.add(cross1);
 
         },
 
         switch:function(){
-            if(pos == 15){
-                old = 15;
+            if(pos == 17){
+                old = 17;
                 pos = 0;
             }
             else{

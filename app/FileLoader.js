@@ -28,6 +28,8 @@ var FileLoader = function() {
         "../res/img/Crosshair13.png",
         "../res/img/Crosshair14.png",
         "../res/img/Crosshair15.png",
+        "../res/img/Crosshair16.png",
+        "../res/img/batman.png",
         "../res/textures/TextureHero.png",
         "../res/textures/particle.png",
         "../res/textures/Planet.png",

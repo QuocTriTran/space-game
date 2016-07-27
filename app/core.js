@@ -8,6 +8,7 @@ var crosshair;
 var ship;
 var player;
 var movement;
+var turret;
 
 var frames = 0;
 var collision;
@@ -67,6 +68,9 @@ function init() {
 
     crosshair = new Crosshairs();
     crosshair.init();
+    
+    turret = new Turret();
+    turret.init();
 
     /********** Szene füllen **********/
 
