@@ -276,6 +276,15 @@ var Collision = function() {
     }
 
 
+    // Checks if there is an intersection between a ShipHitbox and another box
+    function intersectShipHitBoxBox(a,b) {
+        // if there is an intersection in every dimension the two boxes intersect
+        return (minXship(a) <= maxX(b) && maxXship(a) >= minX(b) &&
+            (minYship(a) <= maxY(b) && maxYship(a) >= minY(b)) &&
+            (minZship(a) <= maxZ(b) && maxZship(a) >= minZ(b)))
+    }
+
+
 
     return {
 
@@ -291,6 +300,8 @@ var Collision = function() {
         intersectBoxCylinder: intersectBoxCylinder,
         // returns whether there is an intersection between a sphere and a shipHitBox
         intersectSphereShipHitBox: intersectSphereShipHitBox,
+        // returns whether there is an intersection between a shipHitBox and another box
+        intersectShipHitBoxBox: intersectShipHitBoxBox,
 
         // returns wheter there is a collision between a spehere and any other mesh
         // that is collidable

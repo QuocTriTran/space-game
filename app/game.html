@@ -9,37 +9,125 @@
     <link rel="stylesheet" href="../res/css/gui.css" />
 
 </head>
-<body>
+<body scroll="no">
 
+
+	
+	<div id="loadingTexturesOverlay">
+        <div id="loadingTexturesHeader">Loading...</div>
+		<div id="loadingTexturesSplash"></div>
+    </div>
 
 
     <div id="menu-overlay" hidden>
         <div id="menu-box">
-            <table id="menu-highscore-table">
-                <thead>
-                    <tr>
-                        <th class="menu-highscore-table-nr">#</th>
-                        <th>Player</th>
-                        <th class="menu-highscore-table-points">Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Testdaten -->
-                    <tr><th class="menu-highscore-table-nr">1</th><th class="menu-highscore-table-player">JP</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">2</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">3</th><th class="menu-highscore-table-player">jemand</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">4</th><th class="menu-highscore-table-player">eine Person</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">5</th><th class="menu-highscore-table-player">ein Mensch</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">6</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">7</th><th class="menu-highscore-table-player">jemand</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">8</th><th class="menu-highscore-table-player">eine Person</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">9</th><th class="menu-highscore-table-player">niemand</th><th class="menu-highscore-table-points">100</th></tr>
-                    <tr><th class="menu-highscore-table-nr">10</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
-                </tbody>
-            </table>
+            <div id="menuArea">
+        		<div id="menuButtons">            		
+            		<div id="pauseButton" class="shopBox" onClick="showShop()"> Shop </div>
+					<div id="pauseButton" class="highscoreBox" onClick="showHighscore()"> Highscore </div>
+					<div id="pauseButton" class="milestoneBox" onClick="showMilestones()"> Milestones </div>
+					<div id="pauseButton" class="optionsBox" onClick="showOptions()"> Options </div>
+					<div id="pauseButton" class="returnBox" onClick="closeMenu()"> Let's a go! </div>
+        	   </div>
+	       </div>
+		   
+        	<div id="rightMenu"> 
+            <!-- SHOP -->
+                <div id="shop" hidden>
+                    <table id="shopTable">
 
+                        <tr id="shopItem1">
+                            <td class="shopTableTd1">
+                                <img class="shopItemPic" src="../res/img/hpShopItem.png" onClick="buyUpgrade(1)">
+                                <!--
+                                //<div class="buyButton">Buy</div>
+                                -->
+                            </td>
+                            <td>
+                                <div id="shopItemDesc">
+                                	<div> Increases the maximum HP by 25 </div>
+                                	<div id="costSign" class="costUpgrade" >€</div>
+                             		<div id="costUpgrade1" class="costUpgrade">0</div>
+                                <div>
+                            </td>
+                        </tr>
 
+                        <tr id="shopItem2">
+                            <td class="shopTableTd1">
+                                <img class="shopItemPic" src="../res/img/speedShopItem.png" onClick="buyUpgrade(2)">
+                                <!--
+                                //<div class="buyButton">Buy</div>
+                                -->
+                            </td>
+                            <td>
+                                <div id="shopItemDesc" >
+                                	<div> Increases the maximum flight speed by ~40 </div>
+                                	<div id="costSign" class="costUpgrade">€</div>
+                             		<div id="costUpgrade2" class="costUpgrade">0</div>
+                                <div>
+                            </td>
+                        </tr>
 
+                        <tr id="shopItem3">
+                            <td class="shopTableTd1">
+                                <img class="shopItemPic" src="../res/img/speedShopItem.png" onClick="buyUpgrade(3)">
+                                <!--
+                                //<div class="buyButton">Buy</div>
+                                -->
+                            </td>
+                            <td>
+                                <div id="shopItemDesc" >
+                                	<div>Slowly recharge your HP</div>
+                                	<div id="costSign" class="costUpgrade">€</div>
+                             		<div id="costUpgrade3" class="costUpgrade">0</div>
+                                <div>
+                            </td>
+                        </tr>
+                         
+
+                        
+                    </table>
+                </div>
+
+                <div id="highscore" hidden>
+                    
+                    <!-- HIGHSCORE -->
+
+					<div id="headingHighscore"> Highscore </div>
+
+					<table id="menu-highscore-table" >
+						<thead>
+							<tr>
+								<th class="menu-highscore-table-nr">#</th>
+								<th>Player</th>
+								<th class="menu-highscore-table-points">Points</th>
+							</tr>
+						</thead>
+						<tbody>
+			
+							<!-- Testdaten -->
+
+							<tr><th class="menu-highscore-table-nr">1</th><th class="menu-highscore-table-player">JP</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">2</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">3</th><th class="menu-highscore-table-player">jemand</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">4</th><th class="menu-highscore-table-player">eine Person</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">5</th><th class="menu-highscore-table-player">ein Mensch</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">6</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">7</th><th class="menu-highscore-table-player">jemand</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">8</th><th class="menu-highscore-table-player">eine Person</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">9</th><th class="menu-highscore-table-player">niemand</th><th class="menu-highscore-table-points">100</th></tr>
+							<tr><th class="menu-highscore-table-nr">10</th><th class="menu-highscore-table-player">irgendwer</th><th class="menu-highscore-table-points">100</th></tr>
+
+						</tbody>
+					</table>
+					
+					<!-- Ende HIGHSCORE -->
+					
+                </div>
+				
+			<div id="options" hidden>Test options unicorns rainbow</div>
+			
+            </div>
         </div>
     </div>
 
@@ -48,18 +136,18 @@
     <div id="scoreBox">
         <div id="score">0</div>
         <div id ="moneyBox">
-            €<div id="money">0</div>
+			€<div id="money">0</div>
         </div>
     </div>
 
     <div id ="ammoBox">
+        <img src="../res/img/rocketplaceholder.png" id="ammopic" /> 
         <div id="currentAmmo">60</div>
         <div id="ammoDivider">/</div>
         <div id="maxAmmo">999</div>
     </div>
 
-    <section id="bg1">
-
+    <div id="bg1">
         <div id="hpBox">
             <div id="hpBoxValue"></div>
             <div id="hpTextBox">
@@ -68,23 +156,30 @@
                 <div id="maxHP">0</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="bg2">
+    <div id="bg2">
         <div id="speedBox">
             <div id="speedValue">0</div>
         </div>
-
-		<div id="powerUps">
-			<div id="icons">
-				<img src="../res/textures/powerUp.png" id="one" />
-				<img src="../res/textures/powerUp.png" id="two" />
-				<img src="../res/textures/powerUp.png" id="three" class="inactive" />
-				<img src="../res/textures/powerUp.png" id="four" />
+		
+            <!-- PLATZHALTER ICONS -->
+		<div id="powerUps"> 
+			<div id="powerUpIcons">
+				<img src="../res/textures/powerUp.png" id="one" /> 
+				<img src="../res/textures/powerUp.png" id="two" /> 
+				<img src="../res/textures/powerUp.png" id="three" class="inactive" /> 
+				<img src="../res/textures/powerUp.png" id="four" /> 
 			</div>
-		</div>
-    </section>
+		</div>    
+    </div>
 
+    <div id="timerBox"> 
+        <div id ="timerBoxText">Next wave in:</div>
+        <div id ="timerBoxMin">0</div>
+        <div id ="timerBoxDiv">:</div>
+        <div id ="timerBoxSec">0</div>
+    </div>
 
     <div id="speedBar">
         <div id="speedBarValue"> </div>
@@ -94,12 +189,6 @@
         <div id="levelText">Level</div>
         <div id="currentLevel">0</div>
     </div>
-
-    <!-- PLATZHALTER ICONS -->
-
-
-
-
 
     <div id="block">
         <div id="splash">
@@ -113,18 +202,32 @@
         </div>
     </div>
 
-
-
+    <div id="gameOverBox">
+        <div id="gameOverText1">Game Over</div>
+        <div id="gameOverBox2">
+            <div id="gameOverText2">Score:</div>
+			<div id="gameOverText3"></div>
+        </div>
+        <a href="../index.html">
+            <button type="Button" id="gameOverButton" value="back to menu">back to menu</button>
+        </a>
+    </div>
 
     <!-- Libraries -->
     <script src="../res/js/lib/jquery-3.0.0.min.js"></script>
     <script src="../res/js/lib/threejs/three.js"></script>
     <script src="../res/js/lib/TargetCamera.js"></script>
     <script src="../res/js/lib/stats.min.js"></script>
+    <script src="../res/js/lib/threejs/CopyShader.js"></script>
+    <script src="../res/js/lib/threejs/DigitalGlitch.js"></script>
 
+    <script src="../res/js/lib/threejs/EffectComposer.js"></script>
+    <script src="../res/js/lib/threejs/RenderPass.js"></script>
+    <script src="../res/js/lib/threejs/MaskPass.js"></script>
+    <script src="../res/js/lib/threejs/ShaderPass.js"></script>
+    <script src="../res/js/lib/threejs/GlitchPass.js"></script>
 
-
-   <!-- custom -->
+    <!-- custom -->
     <script src="FileLoader.js"></script>
     <script src="RayParticleRenderer.js"></script>
     <script src="ExplosionParticleRenderer.js"></script>
@@ -140,8 +243,7 @@
     <script src="Collision.js"></script>
     <script src="CollisionHandling.js"></script>
     <script src="Weapon.js"></script>
-
-
+    <script src="Items.js"></script>
 
 </body>
 </html>

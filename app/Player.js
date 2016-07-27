@@ -30,6 +30,10 @@ function Player() {
 
     return {
 
+        playerHitByAsteroid: function() {
+            changeHP(-20);
+        },
+
         init: function () {
             var geometry = fileLoader.get("HeroShipV5");
             var texture = fileLoader.get("TextureHero");
@@ -77,7 +81,7 @@ function Player() {
             var matrix = new THREE.Matrix4();
             matrix.extractRotation( ship.matrix );
             var upVector = new THREE.Vector3( 0, 1, 0 );
-            matrix.multiplyVector3( upVector );
+            upVector.applyMatrix4( matrix );
             var leftVector = getOrthognalVector(dirVector, upVector);
             var rightVector = leftVector.clone().multiplyScalar(-1);
 

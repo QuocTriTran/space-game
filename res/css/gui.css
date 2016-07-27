@@ -6,12 +6,10 @@ body {
 }
 
 #scoreBox {
-	width: 100px;
 	position: fixed;
 	top: 20px; 
-	left: 20px; 
-	border-color: black;
-	border-width: 5px;
+	left: 20px;
+	width: 100px;
 	color: yellow;
 	text-align: left;
 	line-height: 26.4px;
@@ -34,32 +32,49 @@ body {
 	top: 20px;
 	right: 20px;
 	width: 80px;
+	height: 80px;
 	color: yellow;
+	float: none;
 }
 
 #currentAmmo {
+	position: fixed;
+	top: 15px;
+	right: 55px;
 	font-size: 30px;
-	line-height: 26.4px;
+	text-align: right;
 }
 
 #ammoDivider {
 	position: fixed;
-	margin-top: -11px;
-	margin-left: 32px;
+	top: 35px;
+	right: 50px;
 	font-size: 10px;
 }
 
 #maxAmmo {
-	position: fixed;
-	margin-top: -12px;
-	margin-left: 36px;
+	position: relative;
+	top: 20px;
+	left: 52px;
 	font-size: 14px;
-	line-height: 26.4px;
+	text-align: left;
+}
+
+#ammopic{
+	margin-top: 10px;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	width: 80px;
+	height: 80px;
+	opacity: 0.3;
+	background: transparent url("../res/img/rocketplaceholder.png");
 }
 
 #bg1 {
+	z-index: 2;
 	transform: skewX(45deg);
-	background-image:url(../textures/metall.jpg);
+	background-image: url(../textures/metall.jpg);
 
 	position: fixed;
 	left : -40px;
@@ -73,8 +88,9 @@ body {
 }
 
 #bg2 {
+	z-index: 2;
 	transform: skewX(-45deg);
-	background-image:url(../textures/metall.jpg);
+	background-image: url(../textures/metall.jpg);
 
 	position: fixed;
 	right : -40px;
@@ -91,42 +107,39 @@ body {
 	position: fixed;
 	left: 60px;
 	right: 20px;
-
 	bottom: 15px;
-	height:20px;
-
-	background-color: rgba(0, 0, 0, 0.5);
-
+	height: 20px;
 	border: 1px solid black;
 	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 #hpBoxValue {
-	width: 0%;
 	height: 100%;
+	//width: 0%;
 	border-radius: 10px;
 }
 
-#hpTextBox{
-	text-shadow: 2px 2px #000000;
-	transform: skewX(-45deg);
-	color: #ffffff;
-	bottom: 33%;
-	left: 50%;
+#hpTextBox {
 	position: fixed;
+	left: 50%;
+	bottom: 33%;
+	color: white;
 	text-align: center;
 	font-weight: bold;
+	text-shadow: 2px 2px #000000;
+	transform: skewX(-45deg);
 }
 
-#currentHP{
+#currentHP {
 	display: inline;
 }
 
-#hpDivider{
+#hpDivider {
 	display: inline;
 }
 
-#maxHP{
+#maxHP {
 	display: inline;
 }
 
@@ -135,9 +148,9 @@ body {
 	position: fixed;
 	right: 15px;
 	bottom: 60px;
-	width:15px;
-	height:180px;
-	background-color:black;
+	width: 15px;
+	height: 180px;
+	background-color: black;
 	opacity: 0.5;
 	border: 1px solid black;
 	border-radius: 10px;
@@ -146,9 +159,9 @@ body {
 
 #speedBarValue {
 	transform: rotate(180deg);
-	position:relative;
-	width:100%;
-	height:0%;
+	position: relative;
+	width: 100%;
+	height: 0%;
 	border-radius: 10px;
 }
 
@@ -165,22 +178,22 @@ body {
 
 #levelDisplay {
 	position: fixed;
-	left:40%;
-	width:20%;
+	left: 40%;
+	width: 20%;
 	height: 30px;
 
 	background-color: rgba(255,255,255,0.4);
-	border-style:ridge;
-	border-color:white;
-	border-width:3px;
-	border-radius: 15px/50px;
-	text-align:center;
-	opacity:0;
+	border-style: ridge;
+	border-color: white;
+	border-width: 3px;
+	border-radius: 15px / 50px;
+	text-align: center;
+	opacity: 0;
 }
 
 #levelText {
-	color:yellow;
-	width:auto;
+	color: yellow;
+	width: auto;
 
 	margin-bottom: 36px;
 	font-size: 28px;
@@ -190,17 +203,17 @@ body {
 #currentLevel {
 	margin-top: -30px;
 	font-size: 36px;
-	color:yellow;
+	color: yellow;
 }
 
 #powerUps {
-	position:fixed;
-	height:30px;
+	position: fixed;
+	height: 30px;
 	bottom: 15px;
 	left: 30px;
 	transform: skewX(45deg);
 }
-#icons img{
+#powerUpIcons img{
 	height: 35px;
 	width:auto;
 	display:inline;
@@ -208,5 +221,198 @@ body {
 }
 
 .inactive {
-	opacity:0.4;
+	opacity: 0.4;
+}
+
+#timerBox{
+	z-index: 1;
+	position: fixed;
+	color: yellow;
+
+	width: 100%;
+	bottom: -25px;
+
+	height: 50px;
+
+	border-top: solid;
+	text-align: center;
+	border-color: white;
+	background-color: rgba(255,255,255,0.2);
+}
+
+#timerBoxText{
+	display: inline;
+}
+
+#timerBoxMin{
+	display: inline;
+}
+
+#timerBoxDiv{
+	display: inline;
+}
+
+#timerBoxSec{
+	display: inline;
+}
+
+
+
+#gameOverBox{
+	position: fixed;
+	border-style: solid;
+	border-color: white;
+	border-radius: 30px; 
+	text-align: center;
+	top : -350px;
+	left: 20%;
+	width: 60%;
+	height: 340px;
+	background-color: rgba(255,255,255,0.2);
+}
+
+#gameOverText1{
+	color : #ff3030;
+	text-shadow: 3px 2px #000000;
+	font-size: 80px;
+}
+
+#gameOverBox2{
+	margin-top: 20px;
+	font-size: 30px;
+	color : white;
+}
+
+#gameOverText2{
+	display: inline;
+}
+
+#gameOverText3{
+	display: inline;
+}
+
+#gameOverButton {
+	margin-top: 50px;
+    border-radius: 38px;
+    text-shadow: 4px 2px 13px #666666;
+    color: #ffffff;
+    font-size: 20px;
+    background: #dbdbdb;
+    padding: 10px 20px 10px 20px;
+}
+
+#gameOverButton:hover {
+  background: #d1d1d1;
+  background-image: -webkit-linear-gradient(top, #d1d1d1, #b0b0b0);
+  background-image: -moz-linear-gradient(top, #d1d1d1, #b0b0b0);
+  background-image: -ms-linear-gradient(top, #d1d1d1, #b0b0b0);
+  background-image: -o-linear-gradient(top, #d1d1d1, #b0b0b0);
+  background-image: linear-gradient(to bottom, #d1d1d1, #b0b0b0);
+  text-decoration: none;
+}
+
+#loadingTexturesOverlay {
+	overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    z-index: 1000;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.95);
+}
+
+#loadingTexturesHeader {
+    text-align: center;
+    padding-top: 22%;
+	font-size: 32px;
+}
+
+#loadingTexturesSplash {
+	text-align: center;
+	top: 1%;
+	font-size: 24px;
+}
+
+#shop{
+}
+
+#shopTable{
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+#shopTable tr{
+	height: 100px;
+	width : 100%;
+}
+
+.shopTableTd1{
+	position: relative;
+	width: 100px;
+}
+
+#shopItem1{
+
+}
+
+#shopItem2{
+
+}
+
+
+.shopItemPic{
+
+	margin-left: auto;
+    margin-right: auto;
+
+	border: 4px ridge;
+    border-color: rgba(0, 153, 204, 0.7);
+    border-radius: 9px;
+    box-shadow: inset 1px 1px 6px -2px #00ace6, inset 2px 2px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.5);
+
+	border-radius: 15px;
+	top: 0px;
+	bottom: 0px;
+	width: 100px;
+	height: 100px;
+}
+
+.shopItemPic:hover {
+	-moz-box-shadow: 0 0 10px #ccc;
+	-webkit-box-shadow: 0 0 10px #ccc;
+	box-shadow: inset 1px 1px 6px -2px #00ace6, inset 2px 2px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,0,0.5); 
+	background-color: rgba(0,0,0,1);
+	-webkit-transform:scale(0.95);
+	transform:scale(0.95);
+}
+
+
+#shopItemDesc{
+	margin-left: auto;
+    margin-right: auto;
+    color: white;
+
+	width: auto;
+	height: 100px;
+	border-style: solid;
+	border-color: black;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+#costSign{
+	color: yellow;
+	display: inline;
+}
+
+.costUpgrade{
+	margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 0px;
+	color: yellow;
+	display: inline;
 }

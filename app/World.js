@@ -1,8 +1,8 @@
 var sphere = new THREE.Object3D();
 var biggerSphere = new THREE.Object3D();
 var stars = [];
-
 var asteroids = [];
+var asteroidsHP = [];
 var asteroidSpeedVecs = [];
 var asteroidRotVecs = [];
 var asteroidHitBoxes = [];
@@ -48,9 +48,10 @@ function createAsteroids(){
 
     var rndSpeedX, rndSpeedY, rndSpeedZ, rotSpeed, rndScale;
     var  materialAst, astHitBox, hitGeometry;
-    var astTexture, astOriginal;
+    var astTexture, astOriginal, astGeometry;
 
-    astTexture = fileLoader.get("AsteroidV2");
+    astGeometry = fileLoader.get("AsteroidV2");
+    astTexture  = fileLoader.get("AsteroidTex");
 
   for( countAst = 0 ; countAst < 100; countAst++){
 
@@ -65,7 +66,8 @@ function createAsteroids(){
      asteroidSpeedVecs.push(vecSpeed);
      asteroidRotVecs.push(vecRot);
 
-     astOriginal = new THREE.Mesh(astTexture, new THREE.MeshPhongMaterial({culling: THREE.DoubleSide}));
+     astOriginal = new THREE.Mesh(astGeometry, new THREE.MeshPhongMaterial({culling: THREE.DoubleSide,
+        map: astTexture}));
 
      astOriginal.position.x = ship.position.x + Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
      astOriginal.position.y = ship.position.y + Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius );
@@ -73,9 +75,7 @@ function createAsteroids(){
 
      astOriginal.scale.x = astOriginal.scale.y = astOriginal.scale.z = rndScale;
 
-     hitGeometry =  new THREE.SphereGeometry(4 * rndScale, 32, 32);
-
-     // console.log("4*rndScale " + 4*rndScale);
+     hitGeometry =  new THREE.SphereGeometry(4 *rndScale, 32, 32);
 
       var colSphereMaterial = new THREE.MeshBasicMaterial({
                     transparent: true,
@@ -87,7 +87,7 @@ function createAsteroids(){
                 astHitBox.position.set(astOriginal.position.x,astOriginal.position.y,astOriginal.position.z);
                 astHitBox.scale.x = astHitBox.scale.y = astHitBox.scale.z = rndScale;
 
-
+    asteroidsHP.push(10);
      asteroids.push(astOriginal);
      asteroidHitBoxes.push(astHitBox);
      scene.add(astOriginal);
@@ -171,14 +171,58 @@ function asteroidCollision(ast1Index, ast2Index){
 }
 
 
+
+function hitAsteroid(asteroidNumber, collisionType){
+
+
+    switch (collisionType){
+
+
+      case "Laser" :
+
+          asteroidsHP[asteroidNumber] -= laserDamage;
+
+          break;
+
+      case "Rocket" :
+
+          asteroidsHP[asteroidNumber] -= rocketDamage;
+
+          break;
+
+      default:
+
+      break;
+
+
+    }
+
+
+    if(asteroidsHP[asteroidNumber] <= 0){
+
+
+      destroyAsteroid(asteroidNumber);
+
+    }
+
+
+
+
+}
+
+
 //Function to trigger if Asteroid get destroyed
 function destroyAsteroid(asteroidNumber){
 
-   var newRandomPosAstX = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
-   var newRandomPosAstY = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
-   var newRandomPosAstZ = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
-   var newScale = Math.random() * 30;
+    explosionParticleHandler.addExplosion(asteroids[asteroidNumber].position, 5, 0xcccccc);
 
+    var newRandomPosAstX = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
+    var newRandomPosAstY = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
+    var newRandomPosAstZ = Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
+    var newScale = Math.random() * 30;
+
+
+    spawnPowerUp(asteroids[asteroidNumber].position.x,asteroids[asteroidNumber].position.y,asteroids[asteroidNumber].position.z);
     asteroids[asteroidNumber].position.x = ship.position.x + newRandomPosAstX;
     asteroids[asteroidNumber].position.y = ship.position.y + newRandomPosAstY;
     asteroids[asteroidNumber].position.z = ship.position.z + newRandomPosAstZ;
@@ -189,6 +233,10 @@ function destroyAsteroid(asteroidNumber){
 
     asteroids[asteroidNumber].scale.x = asteroids[asteroidNumber].scale.y = asteroids[asteroidNumber].scale.z = newScale;
     asteroidHitBoxes[asteroidNumber].scale.x = asteroidHitBoxes[asteroidNumber].scale.y = asteroidHitBoxes[asteroidNumber].scale.z = newScale;
+
+    asteroidHitBoxes[asteroidNumber].geometry.parameters.radius = 4 * newScale;
+
+    asteroidsHP[asteroidNumber] = 100;
 
 }
 
@@ -224,7 +272,10 @@ function updateStars(){
 
 
         star = stars[i];
-        star.scale.x = star.scale.y = star.scale.z = Math.random() * 2 -0;
+
+        star.scale.multiplyScalar(Math.sin(clock.getElapsedTime()));
+
+        //star.scale.x = star.scale.y = star.scale.z = Math.random() * 2 -0;
         // and move it forward
 
         // star.position.z +=  0.3;hip.positi

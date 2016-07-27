@@ -16,11 +16,9 @@ function handleAsteroids() {
 
             if (collision.intersectSphereShipHitBox(asteroidHitBoxes[i],
                     playerHitBoxes[j])) {
-
-                console.log("playerHitByAsteroid");
                 destroyAsteroid(i);
                 // asteroidHitBySpaceship(i);
-                // playerHitByAsteroid();
+                player.playerHitByAsteroid();
             }
         }
 
@@ -49,12 +47,12 @@ function handleProjectiles() {
 
         for (var j = 0; j <= asteroidHitBoxes.length - 1; j++) {
 
-            if (projectiles[i].name === "Laser") {
+            if (projectiles[i].name === "LaserHitBox") {
                 if (collision.intersectSphereCylinder(asteroidHitBoxes[j],
                         projectiles[i])) {
-                    // console.log("HIT!!");
                     // successLaser(projectiles[i]);
-                    destroyAsteroid(j);
+                    hitAsteroid(j, "Laser");
+                    // destroyAsteroid(j);
                 }
             }
 
@@ -62,14 +60,16 @@ function handleProjectiles() {
                 if (collision.intersectSphereCylinder(asteroidHitBoxes[j],
                         projectiles[i])) {
                     // successRocket(projectiles[i]);
-                    destroyAsteroid(j);
+                    hitAsteroid(j, "Rocket");
+                    //destroyAsteroid(j);
                 }
             }
 
             else if (projectiles[i].name === "Explosion") {
                 if (collision.intersectSphereOther(asteroidHitBoxes[j],
                         projectiles[i])) {
-                    destroyAsteroid(j);
+                    hitAsteroid(j, "Explosion");
+                    //destroyAsteroid(j);
                 }
             }
 
@@ -189,8 +189,20 @@ function handleEnemyEnemyCollision() {
 }
 
 
+function handlePlayerPopupCollision() {
+    for (var i = 0; i < playerHitBoxes.length; i++) {
+        for (var j = 0; j < itemHitBoxes.length; j++) {
+            if (collision.intersectShipHitBoxBox(playerHitBoxes[i],
+                    itemHitBoxes[j])) {
+                collected(j);
+            }
+        }
+    }
+}
+
 function handleCollision() {
 
+    handlePlayerPopupCollision();
     handleAsteroids();
     handleProjectiles();
     //handlePlayerEnemyCollision();

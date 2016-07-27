@@ -19,6 +19,6 @@ var ExplosionParticleHandler = function() {
                 }
             }
         }
-    }
+    };
     
 };
