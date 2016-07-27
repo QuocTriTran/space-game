@@ -7,6 +7,7 @@ var down = false;
 var left = false;
 var right = false;
 var weaponTurret;
+var refPoint;
 
 
 function Turret(){
@@ -19,25 +20,35 @@ function Turret(){
             var material = new THREE.MeshBasicMaterial({color: 0xffffff});
             weaponTurret = new THREE.Mesh(tur,material);
             weaponTurret.position.set(0,0,0);
-
-
             ship.add(weaponTurret);
+
+            var refe = new THREE.SphereGeometry(0.1,10,10);
+            var smaterial = new THREE.MeshBasicMaterial({
+
+                transparent: true,
+                color: 0xffffff
+            });
+            refPoint = new THREE.Mesh(refe,smaterial);
+            refPoint.position.set(0,-5,0);
+            weaponTurret.add(refPoint);
+
+
 
 
             var tkdown = function(event) {
 
                 switch (event.keyCode) {
                     case 73:
-                        up = true;
-                        break;
-                    case 74:
-                        left = true;
-                        break;
-                    case 75:
                         down = true;
                         break;
-                    case 76:
+                    case 74:
                         right = true;
+                        break;
+                    case 75:
+                        up = true;
+                        break;
+                    case 76:
+                        left = true;
                 }
             };
 
@@ -45,16 +56,16 @@ function Turret(){
 
                 switch (event.keyCode) {
                     case 73:
-                        up = false;
-                        break;
-                    case 74:
-                        left = false;
-                        break;
-                    case 75:
                         down = false;
                         break;
-                    case 76:
+                    case 74:
                         right = false;
+                        break;
+                    case 75:
+                        up = false;
+                        break;
+                    case 76:
+                        left = false;
                 }
             };
 
@@ -89,26 +100,26 @@ function Turret(){
                 leftrgt += 0.5;
             }
             //console.log("HEllo");
-            if (weaponTurret.rotation.x < 1.6 && weaponTurret.rotation.x > -1.6) {
+            if (weaponTurret.rotation.x < 1.4 && weaponTurret.rotation.x > -1.4) {
                 weaponTurret.rotateX(rotupdn / 30);
-            }else if(weaponTurret.rotation.x <= -1.6 && rotupdn > 0){
+            }else if(weaponTurret.rotation.x <= -1.4 && rotupdn > 0){
                 weaponTurret.rotateX(rotupdn / 30);
-            }else if(weaponTurret.rotation.x >= 1.6 && rotupdn < 0){
+            }else if(weaponTurret.rotation.x >= 1.4 && rotupdn < 0){
                 weaponTurret.rotateX(rotupdn / 30);
             }
-            if (weaponTurret.rotation.z < 1.6 && weaponTurret.rotation.z > -1.6) {
+            if (weaponTurret.rotation.z < 1.4 && weaponTurret.rotation.z > -1.4) {
                 weaponTurret.rotateZ(leftrgt / 30);
                 //console.log("Test1");
-            }else if(weaponTurret.rotation.z <= -1.6 && leftrgt > 0){
+            }else if(weaponTurret.rotation.z <= -1.4 && leftrgt > 0){
                 //console.log("Test2");
                 weaponTurret.rotateZ(leftrgt / 30);
-            }else if(weaponTurret.rotation.z >= 1.6 && leftrgt < 0){
+            }else if(weaponTurret.rotation.z >= 1.4 && leftrgt < 0){
               //  console.log("Test3");
                 weaponTurret.rotateZ(leftrgt / 30);
             }
             //console.log("LeftRight: " + leftrgt + "  UpDown: " + rotupdn);
-            console.log(weaponTurret.rotation);
-            //weaponTurret.rotation.setY = 0;
+            //console.log(weaponTurret.rotation);
+            weaponTurret.rotation.set(weaponTurret.rotation.x,0,weaponTurret.rotation.z);
             //if (weaponTurret.rotation.y <= 1){
                // weaponTurret.rotateZ(leftrgt / 30);
             //}else if(weaponTurret.rotation.y <= 1)

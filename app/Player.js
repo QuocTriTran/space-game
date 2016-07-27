@@ -42,13 +42,7 @@ function Player() {
             ship.position.set(0, 0, 0);
             scene.add(ship);
 
-            var mapA = fileLoader.get("Crosshair");
-            var materialA = new THREE.SpriteMaterial({map: mapA});
 
-            cross = new THREE.Sprite(materialA);
-            cross.position.set(0, 0, -20);
-            cross.scale.set(3.0, 3.0, 1.0);
-            ship.add(cross);
 
             var hitBoxCenterGeometry = new THREE.BoxGeometry(5,2,20);
             var hitBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );

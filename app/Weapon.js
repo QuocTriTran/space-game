@@ -105,7 +105,8 @@ function initializeWeapons(){
 
 	document.body.addEventListener('mousedown', function (e){
         if(e.button === 0){
-    	   shoot();
+    	   //shoot();
+			shoott();
         }
         else if(e.button === 1){
         //MGShoot();
@@ -192,6 +193,37 @@ function shoot(){
       //play lazer-sound
       laserAudio.play();
     }
+}
+
+function shoott(){
+	//if(timeSinceShoot > 0.4){
+		timeSinceShoot = 0;
+		//create mesh
+		bullet1 = new THREE.Mesh(shootGeometry, shootMaterial);
+
+		bullet1.name = "Laser2";
+		//translate to ship position
+		bullet1.position.x = ship.position.x;
+		bullet1.position.y = ship.position.y;
+		bullet1.position.z = ship.position.z;
+		//set orientation of the bullet according to ship orientation
+		var tempvec = new THREE.Vector3(refPoint.matrixWorld.elements[12],refPoint.matrixWorld.elements[13],refPoint.matrixWorld.elements[14]);
+		bullet1.lookAt(tempvec);
+		//rotate: laser beam would be pointing up otherwise
+		bullet1.rotateX(1.57);
+	    bullet1.rotateX(3.1415);
+		//add bullet to scene
+		scene.add(bullet1);
+
+		//add bullet to bullet list so it will be moved
+		projectiles.push(bullet1);
+
+		//console.log(bullet1.name);
+
+		//collidableMeshList.push(bullet1);
+		//play lazer-sound
+		laserAudio.play();
+	//}
 }
 
 
