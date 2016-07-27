@@ -78,6 +78,95 @@ var Collision = function() {
         return Math.max.apply(Math, globalZs);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    // Calculates the min x value of the vertices of a box
+    function minXship(box) {
+        // array for x values
+        var globalXs = [];
+        // get the position of each vertex
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalXs.push(box.geometry.vertices[vertexIndex].x + ship.position.x);
+            }
+        // return the min
+        return Math.min.apply(Math, globalXs);
+    }
+
+    // Calculates the max X value of the vertices of a box
+    function maxXship(box) {
+        var globalXs = [];
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalXs.push(box.geometry.vertices[vertexIndex].x + ship.position.x);
+            }
+        return Math.max.apply(Math, globalXs);
+    }
+
+    // Calculates the min Y value of the vertices of a box
+    function minYship(box) {
+        var globalYs = [];
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalYs.push(box.geometry.vertices[vertexIndex].y + ship.position.y);
+            }
+        return Math.min.apply(Math, globalYs);
+    }
+
+    // Calculates the max Y value of the vertices of a box
+    function maxYship(box) {
+        var globalYs = [];
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalYs.push(box.geometry.vertices[vertexIndex].y + ship.position.y);
+            }
+        return Math.max.apply(Math, globalYs);
+    }
+
+    // Calculates the min Z value of the vertices of a box
+    function minZship(box) {
+        var globalZs = [];
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalZs.push(box.geometry.vertices[vertexIndex].z + ship.position.z);
+            }
+        return Math.min.apply(Math, globalZs);
+    }
+
+    // Calculates the max Z value of the vertices of a box
+    function maxZship(box) {
+        var globalZs = [];
+        for (var vertexIndex = 0; vertexIndex < box.geometry.vertices.length; vertexIndex++)
+            {
+                globalZs.push(box.geometry.vertices[vertexIndex].z + ship.position.z);
+            }
+        return Math.max.apply(Math, globalZs);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Checks if there is an intersection between two boxes
     function intersectBoxBox(a,b) {
         // if there is an intersection in every dimension the two boxes intersect
@@ -95,6 +184,9 @@ var Collision = function() {
                 (sphere.position.z - other.position.z) * (sphere.position.z - other.position.z));
         // if the distance between the centers is smaller the the sum of the
         // radii the spheres intersect
+
+    //console.log(sphere.parameters.radius);
+    // console.log(sphere.geometry.parameters.radius);
         return distance < (sphere.geometry.parameters.radius + other.geometry.parameters.radius);
     }
 
@@ -163,6 +255,27 @@ var Collision = function() {
         return hitBox;
     }
 
+    // Checks if one of the ShipHitboxes intersects a sphere
+    function intersectSphereShipHitBox(sphere, box) {
+      // get box closest point to sphere center by clamping
+        var x = Math.max(minXship(box), Math.min(sphere.position.x, maxXship(box)));
+        var y = Math.max(minYship(box), Math.min(sphere.position.y, maxYship(box)));
+        var z = Math.max(minZship(box), Math.min(sphere.position.z, maxZship(box)));
+
+        // distance between the sphere and the closest box-point to the spehere
+        var distance = Math.sqrt((x - sphere.position.x) * (x - sphere.position.x) +
+                           (y - sphere.position.y) * (y - sphere.position.y) +
+                           (z - sphere.position.z) * (z - sphere.position.z));
+
+        // console.log(distance);
+        // console.log(sphere.geometry.parameters.radius);
+
+
+        // if the distance is smaller than the radius of the sphere there is an intersection
+        return distance < sphere.geometry.parameters.radius;
+    }
+
+
 
     return {
 
@@ -176,6 +289,8 @@ var Collision = function() {
         intersectSphereCylinder: intersectSphereCylinder,
         // returns whether there is an intersection between a box and a cylinder
         intersectBoxCylinder: intersectBoxCylinder,
+        // returns whether there is an intersection between a sphere and a shipHitBox
+        intersectSphereShipHitBox: intersectSphereShipHitBox,
 
         // returns wheter there is a collision between a spehere and any other mesh
         // that is collidable

@@ -30,10 +30,11 @@ var FileLoader = function() {
         "../res/img/Crosshair15.png",
         "../res/img/Crosshair16.png",
         "../res/img/batman.png",
+
         "../res/textures/TextureHero.png",
         "../res/textures/particle.png",
+        "../res/textures/particle_grey.png",
         "../res/textures/Planet.png",
-        "../res/textures/lensflare1.png",
         "../res/textures/lensflare1.png",
         "../res/textures/lensflare2.png",
         "../res/textures/lensflare3.png",

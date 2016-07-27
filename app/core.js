@@ -9,6 +9,8 @@ var ship;
 var player;
 var movement;
 var turret;
+var explosionParticleHandler;
+
 
 var frames = 0;
 var collision;
@@ -16,9 +18,10 @@ var collision;
 
 
 $(function() {
-    
-    fileLoader = FileLoader();    
+
+    fileLoader = FileLoader();
     interface = Interface();
+    explosionParticleHandler = ExplosionParticleHandler();
     collision = Collision();
     setTimeout(function(){
         init();
@@ -100,7 +103,7 @@ function init() {
     createAsteroids();
 
     movement = Movement();
-    movement.init();    
+    movement.init();
     interfaceInit();
 
 
@@ -169,7 +172,7 @@ var delta;
 
 
 function animate() {
-    // dont touch!    
+    // dont touch!
     requestAnimationFrame( animate );
     now = Date.now();
     delta = now - then;
@@ -177,7 +180,7 @@ function animate() {
         then = now - (delta % interval);
         render();
     }
-   
+
 }
 
 function render() {
@@ -192,14 +195,13 @@ function render() {
         movement.move(delta);
         updateStars();
         updateAsteroids();
-    }
-    
-    player.updateParticleValues();
-    camera.update();
 
+        // update particle ray of the spaceship
+        player.updateParticleValues();
+        // update all explosions
+        explosionParticleHandler.update();
+    }
+
+    camera.update();
     renderer.render(scene, camera);
 }
-
-
-
-

@@ -303,7 +303,7 @@ function renderWeapons(){
 	    if (dis > 3000){
 	    	scene.remove(projectiles[bul]);
 	    	//var index = collidableMeshList.indexOf(projectiles[bul]);
-	    	delete projectiles[bul];
+	    	//delete projectiles[bul];
 	    	projectiles.splice(bul,1);
 	    }
 

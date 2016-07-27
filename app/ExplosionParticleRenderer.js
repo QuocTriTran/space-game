@@ -18,7 +18,7 @@ function ExplosionParticleRenderer(particleColor, nParticles, particleTexture, l
         {
             color: particleColor,
             size: 1,
-            map: THREE.ImageUtils.loadTexture(particleTexture), // TODO: Fileloader benutzen
+            map:particleTexture, // TODO: Fileloader benutzen
             blending: THREE.AdditiveBlending,
             transparent: true
         }
