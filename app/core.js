@@ -43,7 +43,7 @@ $(function() {
     LoadingScreen();
     interface = Interface();
     collision = Collision();
-    explosionParticleHandler = ExplosionParticleHandler();
+    explosionParticleHandler = ParticleHandler();
 
 
     // alle 50ms prüfen, ob alle Files geladen sind
