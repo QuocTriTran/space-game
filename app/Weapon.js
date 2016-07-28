@@ -59,7 +59,7 @@ function initializeWeapons(){
 
 	//initialize Geometrys
 	shootGeometry = new THREE.CylinderGeometry(1,1,500);
-	rocketGeometry = fileLoader.get("RocketV1");
+	rocketGeometry = fileLoader.get("RocketV2");
 	explosionGeometry = new THREE.SphereGeometry(600,32,32);
 	MGGeometry = new THREE.SphereGeometry(0.1,16,16);
 	hitBoxGeometry = new THREE.CylinderGeometry(1,1,1000);
@@ -81,7 +81,7 @@ function initializeWeapons(){
 
 	//document.addEventListener('leftclick', shoot, false);
 
-	/*document.body.addEventListener('mousedown', function (e){
+	document.body.addEventListener('mousedown', function (e){
         if(e.button === 0){
     	   shoot();
 
@@ -91,10 +91,10 @@ function initializeWeapons(){
             console.log("right");
         }
     }, false);
-*/
+
 
 	//add Listener for left and rigth mouseclick
-	document.body.addEventListener('click', shoot, false);
+	//document.body.addEventListener('click', shoot, false);
 
 	
 }
@@ -187,9 +187,9 @@ function shootLaser(){
 	 	laserHitBox.name = "LaserHitBox";
 
 	  	//translate bullet to ship position
-	  	//laser.position.x = ship.position.x;
-	  	//laser.position.y = ship.position.y;
-	  	//laser.position.z = ship.position.z;
+	  	laser.position.x = ship.position.x;
+	  	laser.position.y = ship.position.y;
+	  	laser.position.z = ship.position.z;
 
 	  	//translate HitBox to ship position
 	  	laserHitBox.position.x = ship.position.x;
@@ -211,7 +211,7 @@ function shootLaser(){
 	  	laserHitBox.translateY(-85);
 
 	  	//add bullet to scene
-	  	//scene.add(laser);
+	  	scene.add(laser);
 
 	    laserHitBox.visible = false;
 
@@ -242,8 +242,6 @@ function shoott(){
 		var tlaser = new THREE.Mesh(shootGeometry, shootMaterial);
 		var tlaserHitBox = new THREE.Mesh(hitBoxGeometry, hitBoxMaterial);
 
-		tlaserHitBox.add(tlaser);
-
 		tlaser.name  = "Laser";
 		tlaserHitBox.name = "LaserHitBox";
 		//translate to ship position
@@ -268,7 +266,7 @@ function shoott(){
 		tlaserHitBox.rotateX(1.57);
 		tlaserHitBox.rotateX(3.1415);
 		//add bullet to scene
-		//scene.add(tlaser);
+		scene.add(tlaser);
 		tlaserHitBox.visible = false;
 		scene.add(tlaserHitBox);
 		//add bullet to bullet list so it will be moved
@@ -406,7 +404,7 @@ function renderWeapons(){
 	//increment time counters for limiting shooting frequence
 	timeSinceShoot  += add;
 	timeSinceMG     += add;
-	timeSinceRocket += add;
+	timeSinceRocket += add
 	//variable for limiting explosion lifespan
 	explosionTime +=add;
 
