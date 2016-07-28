@@ -1,8 +1,8 @@
-function ImplosionParticleRenderer() {
+function ImplosionParticleRenderer(particleColor, nParticles, particleTexture, startVector, size) {
 
-    this.startVector = new THREE.Vector3(0, 0, 0);
-    this.particleCount = 1000;
-
+    this.startVector = startVector;
+    this.particleCount = nParticles;
+    this.color = particleColor;
 
     this.running = true;
     this.clock = new THREE.Clock();
@@ -10,11 +10,11 @@ function ImplosionParticleRenderer() {
 
     this.particles = new THREE.Geometry();
 
-    this.material = new THREE.PointCloudMaterial(
+    this.material = new THREE.PointsMaterial(
         {
-            color: 0xffffff,
-            size: 1,
-            map: fileLoader.get("particle_grey"),
+            color: particleColor,
+            size: size,
+            map: particleTexture,
             blending: THREE.AdditiveBlending,
             transparent: true
         }
@@ -36,7 +36,7 @@ function ImplosionParticleRenderer() {
         this.particles.vertices.push(particle);
     }
 
-    this.particleSystem = new THREE.PointCloud(this.particles, this.material);
+    this.particleSystem = new THREE.Points(this.particles, this.material);
 
     this.currentMovement = 1;
 

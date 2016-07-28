@@ -10,7 +10,7 @@ function ExplosionParticleRenderer(particleColor, nParticles, particleTexture, l
     this.particles = new THREE.Geometry();
 
     // Material erstellen
-    this.material = new THREE.PointCloudMaterial(
+    this.material = new THREE.PointsMaterial(
         {
             color: particleColor,
             size: size,
@@ -37,7 +37,7 @@ function ExplosionParticleRenderer(particleColor, nParticles, particleTexture, l
         );
         this.particles.vertices.push(particle);
     }
-    this.particleSystem = new THREE.PointCloud(this.particles, this.material);
+    this.particleSystem = new THREE.Points(this.particles, this.material);
 
     // zur Szene hinzufügen
     scene.add(this.particleSystem);

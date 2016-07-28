@@ -217,9 +217,11 @@ function shootLaser(){
 
 	  	scene.add(laserHitBox);
 
+	  	laserHitBox.userData = laser;
+
 
 	  	//add bullet to bullet list so it will be moved
-	  	//projectiles.push(laser);
+	  	projectiles.push(laser);
 
 	  	projectiles.push(laserHitBox);
 	}
@@ -283,13 +285,13 @@ function shoott(){
 
 
 function successRocket(bul){
-	rocketExplode(projectiles[bul-1]);
-	scene.remove(projectiles[bul]);
-	scene.remove(projectiles[bul-1]);
-	//remove Laser HitBox
-	projectiles.splice(bul,1);
-	//remove Laser
-	projectiles.splice((bul-1),1);
+	// rocketExplode(projectiles[bul-1]);
+	// scene.remove(projectiles[bul]);
+	// scene.remove(projectiles[bul-1]);
+	// //remove Laser HitBox
+	// projectiles.splice(bul,1);
+	// //remove Laser
+	// projectiles.splice((bul-1),1);
 
 
 }
@@ -300,7 +302,7 @@ function shootRocket(){
     if(timeSinceRocket>1.2 && rocketAmmo>0){
     	rocketAmmo -= 1;
 
-    	console.log("rocketAmmo:"+rocketAmmo);
+    	//console.log("rocketAmmo:"+rocketAmmo);
    		
    		//play rocket-sound
    		rocketAudio.play();
@@ -426,28 +428,23 @@ function renderWeapons(){
 		//check name and proceed accordingly
 
 		//if projectile is a laser-beam:
-		// if(projectiles[bul].name == "Laser"){
-		// 	//translate in mooving direction
-	 //    	projectiles[bul].translateY(-4000 * add);
-	 //    	//if more then 3000 away from ship delete
-	 //    	if (dis > biggerSphereRadius){
-  //   			scene.remove(projectiles[bul]);
-  //   			//delete projectiles[bul];
-  //   			projectiles.splice(bul,1);
-  //   		}
-	 //    }
+		if(projectiles[bul].name == "Laser"){
+		 	//translate in mooving direction
+	        projectiles[bul].translateY(-4000 * add);
+	    }
 
 	   	//if projectile is a laser-beam:
-		/*else*/ if(projectiles[bul].name == "LaserHitBox"){
+		else if(projectiles[bul].name == "LaserHitBox"){
 			//translate in mooving direction
 	    	projectiles[bul].translateY(-4000 * add);
-	    	//projectiles[bul].children[0].translateY(-4000 * add);
-
-	    	//if more then 3000 away from ship delete
+	    	
 	    	if (dis > biggerSphereRadius){
-    			//scene.remove(projectiles[bul]);
+	    		var index = projectiles.indexOf(projectiles[bul].userData);
+    			scene.remove(projectiles[bul]);
+    			scene.remove(projectiles[index]);
     			//delete projectiles[bul];
     			projectiles.splice(bul,1);
+    			projectiles.splice(index,1);
     		}
 	    }
 
