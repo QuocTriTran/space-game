@@ -33,7 +33,7 @@ var FileLoader = function() {
         "../res/textures/Crosshair13.png",
         "../res/textures/Crosshair14.png",
         "../res/textures/Crosshair15.png",
-        "../res/img/Crosshair16.png",
+        "../res/textures/Crosshair16.png",
         "../res/img/batman.png",
 
         "../res/textures/TextureHero.png",
