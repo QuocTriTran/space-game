@@ -14,7 +14,6 @@ var FileLoader = function() {
     var files = [
         // Texturen
         "../res/textures/metall.jpg",
-        "../res/textures/test.jpg",
         "../res/textures/tex.jpg",
         "../res/textures/sky_sphere_map.jpg",
         "../res/textures/Crosshair.png",
@@ -55,11 +54,7 @@ var FileLoader = function() {
         //"../res/meshes/HeroShipV4.json",
         "../res/meshes/HeroShipV5.json",
         "../res/meshes/EnemyMiniShipV1.json",
-        "../res/meshes/AsteroidPart1.json",
-        "../res/meshes/AsteroidPart2.json",
-        "../res/meshes/AsteroidPart3.json",
-        "../res/meshes/AsteroidComplete.json",
-        "../res/meshes/RocketV1.json",
+        "../res/meshes/RocketV2.json",
         "../res/meshes/AsteroidV2.json",
         "../res/meshes/PowerUpHealth.json",
         "../res/meshes/PowerUpRocket.json",

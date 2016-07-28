@@ -67,7 +67,7 @@ function createAsteroids(){
      asteroidSpeedVecs.push(vecSpeed);
      asteroidRotVecs.push(vecRot);
 
-     astOriginal = new THREE.Mesh(astGeometry, new THREE.MeshPhongMaterial({culling: THREE.DoubleSide,
+     astOriginal = new THREE.Mesh(astGeometry, new THREE.MeshPhongMaterial({
         map: astTexture}));
 
      astOriginal.position.x = ship.position.x + Math.floor(Math.random() * (biggerSphereRadius - (-biggerSphereRadius)) -biggerSphereRadius);
@@ -299,9 +299,12 @@ function updateStars(){
 
 
         star = stars[i];
-
-        star.scale.multiplyScalar(Math.sin(clock.getElapsedTime()));
-
+        var temp = Math.sin(clock.getElapsedTime());
+        //star.scale.multiplyScalar(temp < 0.5? 0.5 : temp);
+        star.scale.x = temp;
+        star.scale.y = temp;
+        star.scale.z = temp;
+        //console.log(star.scale);
         //star.scale.x = star.scale.y = star.scale.z = Math.random() * 2 -0;
         // and move it forward
 
@@ -315,6 +318,7 @@ function updateStars(){
 
 
        }
+        //console.log(star.position);
     }
 
 }
