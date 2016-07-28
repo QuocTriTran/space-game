@@ -1,4 +1,3 @@
-
 var powerUps = [];
 var types  = [];
 var itemHitBoxes = [];
@@ -85,22 +84,36 @@ function updatePowerUps (){
 
 function collected(itemNumber){
 
+    console.log("itemCollected");
+    changeScore(scoreValues["itemCollected"]);
+
 	var tmpItem =  types[itemNumber];
 
 	switch (tmpItem){
 
 		case "HEALTH":
-
+            explosionParticleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x00FF00);
 			powerUpAudio.play();
 			changeHP(50);
 
 		break;
 
+        default:
 
-
-
-
+            explosionParticleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x6495ED);
+        break;
 	}
+
+
+
+    scene.remove(powerUps[itemNumber]);
+    scene.remove(itemHitBoxes[itemNumber]);
+
+    itemHitBoxes.splice(itemNumber, 1);
+    powerUps.splice(itemNumber, 1);
+    types.splice(itemNumber, 1);
+
+
 
 
 

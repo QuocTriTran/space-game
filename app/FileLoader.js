@@ -2,6 +2,7 @@
 var laserAudio;
 var rocketAudio;
 var explosionAudio;
+var powerUpAudio;
 //var MGAudio;
 
 
@@ -88,7 +89,7 @@ var FileLoader = function() {
         textureLoader.setCrossOrigin('anonymous');
         // load texture
         textureLoader.load(file, function (texture) {
-            console.log("got:"+name);
+            //console.log("got:"+name);
             loadedFiles[name] = texture;
             filesSuccessfullyLoaded += 1;
         });
@@ -98,7 +99,7 @@ var FileLoader = function() {
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
 
-        console.log("looking for:"+file);
+        //console.log("looking for:"+file);
 
         var h = file.split("/");
         var name = h[h.length-1].split(".")[0];
@@ -126,9 +127,9 @@ var FileLoader = function() {
     laserAudio = document.createElement('audio');
     var laserAudioSource = document.createElement('source');
     laserAudioSource.src = '../res/sounds/gun.wav';
-    laserAudio.appendChild(laserAudioSource);
+    laserAudio.appendChild(laserAudioSource)
 
-    var powerUpAudio = document.createElement('audio');
+    powerUpAudio = document.createElement('audio');
     var powerUpAudioSource = document.createElement('source');
     powerUpAudioSource.src = '../res/sounds/powerup.wav';
     powerUpAudio.appendChild(powerUpAudioSource);
@@ -150,6 +151,7 @@ var FileLoader = function() {
     // MGAudio.appendChild(MGAudioSource);
 
     console.log("FileLoader done.");
+
 
     function isReady() {
         // gibt true zurück, wenn alle Files geladen wurden

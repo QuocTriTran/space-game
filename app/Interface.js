@@ -33,7 +33,7 @@ function interfaceInit() {
 	setHP(100);
 	setMoney(20333300);
 	updateWeaponInterface();
-	
+
 	displayLevel(1);
 	setLevelTimer(260);
 	startLevelTimer();
@@ -58,7 +58,7 @@ function LoadingScreen() {
 /* Adds an animated ellipsis to the loading screen */
 function loadingEllipsis() {
 	var loadingHeader = document.getElementById('loadingTexturesHeader');
-	
+
 	switch(loadingHeader.innerHTML.length) {
 		case 7:
 			loadingHeader.innerHTML = 'Loading.';
@@ -109,7 +109,7 @@ function loadingSplash() {
 		'Encounting Voyager',
 		'Joining the Dark Side'
 	];
-	
+
 	// Random number between 0 and splashArray.length - 1
 	var i = Math.floor(Math.random() * (splashArray.length));
 	var temp = document.getElementById('loadingTexturesSplash');
@@ -135,7 +135,7 @@ function hideTextureLoading() {
 
 var currentScore = 0;
 var scoreCounterID;
-var scoreReference = document.getElementById('score'); 
+var scoreReference = document.getElementById('score');
 
 /* Starts the passive score counter */
 function startScoreCounter() {
@@ -148,7 +148,7 @@ function stopScoreCounter() {
 }
 
 /* Changes the score by @value */
-function changeScore(value) {   
+function changeScore(value) {
 	currentScore += parseInt(value);
     scoreReference.innerHTML = currentScore;
 }
@@ -165,14 +165,14 @@ function getScore() {
 }
 
 /**
- * FUNCTIONS FOR MONEY	
+ * FUNCTIONS FOR MONEY
  */
 
 var currentMoney = 0;
-var moneyReference = document.getElementById('money'); 
+var moneyReference = document.getElementById('money');
 
 /* Changes the amount of currentMoney by @value */
-function changeMoney(value) {   
+function changeMoney(value) {
 	currentMoney +=parseInt(value);
     moneyReference.innerHTML = currentMoney
 }
@@ -191,22 +191,22 @@ function getMoney() {
 /**
  * FUNCTIONS FOR AMMO
  */
- 
+
 var currentAmmoLabel = document.getElementById('currentAmmo');
 var maxAmmoLabel = document.getElementById('maxAmmo');
 var currentAmmo = 0;
 var maxAmmo = 0;
 
 // Function for secondary weapon display missing
- 
+
 /* Updates the weapon interface of the secondary weapon*/
 function updateWeaponInterface() {
 	switch(activeSecWeapon) {
-		case 0: 
+		case 0:
 				currentAmmo = rocketAmmo;
 				maxAmmo = MaxRockedAmmo;
 				break;
-		case 1: 
+		case 1:
 				currentAmmo = MGAmmo;
 				maxAmmo = MaxMGAmmo;
 				break;
@@ -215,7 +215,7 @@ function updateWeaponInterface() {
 				maxAmmo = 42;
 				break;
 	}
-	
+
 	currentAmmoLabel.innerHTML = currentAmmo;
 	maxAmmoLabel.innerHTML = maxAmmo;
 }
@@ -223,7 +223,7 @@ function updateWeaponInterface() {
 /**
  * FUNCTIONS FOR HP
  */
- 
+
  	var currentHP = 0;
 	var maxHP = 0;
 	var displayedHP = 0;
@@ -248,19 +248,19 @@ function changeHP(value) {
 	// Amount of HP per tick
 	var hpTick = value / ticks;
 	var tempID = setInterval(frame, 1);
-	
+
 	function frame() {
 		if(i < ticks) {
 			if (!Pause) {
 				displayedHP += hpTick;
-			
+
 				if (displayedHP > maxHP) {
 					clearInterval(tempID);
 					displayedHP = maxHP;
 					updateHPDisplay();
 					return;
 				}
-			
+
 				if (displayedHP <= 0) {
 					clearInterval(tempID);
 					document.getElementById('currentHP').innerHTML = 0;
@@ -268,7 +268,7 @@ function changeHP(value) {
 					gameOver();
 					return;
 				}
-			
+
 				updateHPDisplay();
 				i++;
 			}
@@ -281,7 +281,7 @@ function changeHP(value) {
 /* Sets HP to @value */
 function setHP(value) {
 	updateHPDisplay();
-    
+
 	if(value<=maxHP){
 		currentHP = value;
 		displayedHP = value;
@@ -311,10 +311,10 @@ function updateHPDisplay() {
 	// Update the HP label
 	var temp = document.getElementById('currentHP');
 	temp.innerHTML = parseInt(displayedHP + 0.5);
-	
+
 	// Update the HP width
 	hpBoxCurrent.style.width = displayedHP / maxHP * 100 + '%';
-	
+
 	// Update the HP color
 	hpUpdateColor();
 }
@@ -335,13 +335,13 @@ function hpUpdateColor() {
 /**
  * FUNCTIONS FOR GAME OVER
  */
- 
+
 /* Initiates the gameOver sequences */
 function gameOver() {
 	document.getElementById('gameOverText3').innerHTML = getScore();
 	$('#gameOverBox').animate({top : '20%'}, 250);
-  	Pause = true;  
-  	PauseScreen = true;     
+  	Pause = true;
+  	PauseScreen = true;
     Movement().unlockPointer();
 }
 
@@ -355,7 +355,7 @@ var minHTML = document.getElementById('timerBoxMin');
 var secHTML = document.getElementById('timerBoxSec');
 
 /* Displays @value as the current level */
-function displayLevel(value) {	
+function displayLevel(value) {
 	var levelReference = document.getElementById('currentLevel');
 	levelReference.innerHTML = parseInt(value);
 	$('#levelDisplay').animate({opacity: '1', top: '50px'}, 1000);
@@ -367,7 +367,7 @@ function displayLevel(value) {
 	$(levelReference).animate({opacity: '0.3'}, 100);
 	$(levelReference).animate({opacity: '1'}, 100);
 	}, 5000);
-	
+
 	setTimeout(function() {
 		$('#levelDisplay').animate({opacity: '0', top: '0px'}, 1000);
 	}, 1500);
@@ -406,7 +406,7 @@ function displayTimer() {
 	else
 		secHTML.innerHTML = sec;
 
-	if(min < 10) 
+	if(min < 10)
 		minHTML.innerHTML = '0' + min;
 	else
 		minHTML.innerHTML = min;
@@ -415,7 +415,7 @@ function displayTimer() {
 /**
  * FUNCTIONS FOR SPEED
  */
- 
+
 var maxSpeed = 100;
 var speedFactor = 4.04;
 var maxBoost = 1.0;
@@ -423,9 +423,9 @@ var maxBoost = 1.0;
 /* Sets the displayed speed value and bar to @newSpeed */
 function setSpeed(newSpeed) {
 	// Set the height of the speed bar
-	var speedBox = document.getElementById('speedBarValue');	
+	var speedBox = document.getElementById('speedBarValue');
 	speedBox.style.height = Number(newSpeed) / maxSpeed * 100 + '%';
-	
+
 	// Set the color of the speed bar
 	var temp = parseInt(255.5 - Number(newSpeed) / maxSpeed * 255);
 	speedBox.style.background = '#FF' + padHex(temp.toString(16)) + '00';
@@ -449,22 +449,22 @@ function setMaxSpeed(newMaxSpeed) {
 /**
  * FUNCTIONS FOR POWERUPS
  */
- 
+
 /* Changes the status of an addressed PowerUp */
 function setPowerUp(powerUp, removeOrAdd) {
 	var icon;
-	
+
 	switch(powerUp) {
 		case 1:
 			icon = document.getElementById('powerUpOne');
-			break;	
+			break;
 		case 2:
 			icon = document.getElementById('powerUpTwo');
 			break;
 		case 3:
 			icon = document.getElementById('powerUpThree');
 			break;
-		case 4: 
+		case 4:
 			icon = document.getElementById('powerUpFour');
 			break;
 		default:
@@ -473,7 +473,7 @@ function setPowerUp(powerUp, removeOrAdd) {
 
 	if (removeOrAdd == 1)
 		icon.classList.remove('inactive');
-	
+
 	if (removeOrAdd == 0)
 		icon.classList.add('inactive');
 }
@@ -481,14 +481,14 @@ function setPowerUp(powerUp, removeOrAdd) {
 /**
  * MISC FUNCTIONS
  */
- 
+
 /* Pads @hex if it is shorter than 2 digits */
 function padHex(hex) {
-	
+
 	while(hex.length < 2) {
 		hex = '0' + hex;
 	}
-	
+
 	return hex;
 }
 
@@ -541,13 +541,13 @@ function checkBuyable(){
 		shopTr2.style.opacity = '0.5';
 	} else {
 		shopTr2.style.opacity= '1';
-	}    
+	}
 
 	if(currentMoney < costUpgrade3) {
 		shopTr3.style.opacity = '0.5';
 	} else {
 		shopTr3.style.opacity= '1';
-	} 
+	}
 }
 var addHPID;
 
@@ -577,7 +577,7 @@ function buyUpgrade(value){
 				addHPID = setInterval(function() {
 					if(!Pause){
 						setHP(getHP()+1);
-					}	
+					}
 				}, 5000 / amountUpgrade3++);
 			}
 			break;
@@ -606,9 +606,9 @@ function showShop() {
 	$menuOptions.hide();
 	$menuShop.show();
 	resetColors();
-	$('.shopBox').css('border-color', 'rgba(255, 170, 0, 0.9)'); 
-	$('.shopBox').css('background-color', 'rgba(255, 255, 255, 0.8)'); 
-    $('.shopBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.shopBox').css('border-color', 'rgba(255, 170, 0, 0.9)');
+	$('.shopBox').css('background-color', 'rgba(255, 255, 255, 0.8)');
+    $('.shopBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	checkBuyable();
 }
 
@@ -618,9 +618,9 @@ function showHighscore() {
 	$menuOptions.hide();
 	$menuHighscore.show();
 	resetColors();
-	$('.highscoreBox').css('border-color', 'rgba(255, 170, 0, 0.9)'); 
-	$('.highscoreBox').css('background-color', 'rgba(255, 255, 255, 0.8)'); 
-    $('.highscoreBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.highscoreBox').css('border-color', 'rgba(255, 170, 0, 0.9)');
+	$('.highscoreBox').css('background-color', 'rgba(255, 255, 255, 0.8)');
+    $('.highscoreBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 }
 
 function showMilestones() {
@@ -629,9 +629,9 @@ function showMilestones() {
 	$menuOptions.hide();
 	$menuMilestones.show();
 	resetColors();
-	$('.milestoneBox').css('border-color', 'rgba(255, 170, 0, 0.9)'); 
-	$('.milestoneBox').css('background-color', 'rgba(255, 255, 255, 0.8)'); 
-    $('.milestoneBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.milestoneBox').css('border-color', 'rgba(255, 170, 0, 0.9)');
+	$('.milestoneBox').css('background-color', 'rgba(255, 255, 255, 0.8)');
+    $('.milestoneBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 }
 
 function showOptions() {
@@ -640,31 +640,31 @@ function showOptions() {
 	$menuMilestones.hide();
 	$menuOptions.show();
 	resetColors();
-	$('.optionsBox').css('border-color', 'rgba(255, 170, 0, 0.9)'); 
+	$('.optionsBox').css('border-color', 'rgba(255, 170, 0, 0.9)');
 	$('.optionsBox').css('background-color', 'rgba(255, 255, 255, 0.8)');
-    $('.optionsBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+    $('.optionsBox').css('box-shadow', 'inset 1px 1px 8px -5px #ffaa00, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 }
 
 function resetColors() {
 	// Reset shopBox
-	$('.shopBox').css('border-color', 'rgba(0, 153, 204, 0.7)'); 
-	$('.shopBox').css('background-color', 'rgba(230, 230, 230, 0.7)'); 
-    $('.shopBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.shopBox').css('border-color', 'rgba(0, 153, 204, 0.7)');
+	$('.shopBox').css('background-color', 'rgba(230, 230, 230, 0.7)');
+    $('.shopBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	// Reset highscoreBox
-	$('.highscoreBox').css('border-color', 'rgba(0, 153, 204, 0.7)'); 
-	$('.highscoreBox').css('background-color', 'rgba(230, 230, 230, 0.7)'); 
-    $('.highscoreBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.highscoreBox').css('border-color', 'rgba(0, 153, 204, 0.7)');
+	$('.highscoreBox').css('background-color', 'rgba(230, 230, 230, 0.7)');
+    $('.highscoreBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	// Reset milestoneBox
-	$('.milestoneBox').css('border-color', 'rgba(0, 153, 204, 0.7)'); 
-	$('.milestoneBox').css('background-color', 'rgba(230, 230, 230, 0.7)'); 
-    $('.milestoneBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.milestoneBox').css('border-color', 'rgba(0, 153, 204, 0.7)');
+	$('.milestoneBox').css('background-color', 'rgba(230, 230, 230, 0.7)');
+    $('.milestoneBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	// Reset optionsBox
-	$('.optionsBox').css('border-color', 'rgba(0, 153, 204, 0.7)'); 
-	$('.optionsBox').css('background-color', 'rgba(230, 230, 230, 0.7)'); 
-    $('.optionsBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)'); 
+	$('.optionsBox').css('border-color', 'rgba(0, 153, 204, 0.7)');
+	$('.optionsBox').css('background-color', 'rgba(230, 230, 230, 0.7)');
+    $('.optionsBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	/* Überflüssig?
-	$('.returnBox').css('border-color', 'rgba(0, 153, 204, 0.7)'); 
-	$('.returnBox').css('background-color', 'rgba(230, 230, 230, 0.7)'); 
+	$('.returnBox').css('border-color', 'rgba(0, 153, 204, 0.7)');
+	$('.returnBox').css('background-color', 'rgba(230, 230, 230, 0.7)');
     $('.returnBox').css('box-shadow', 'inset 1px 1px 6px -2px #00ace6, inset 4px 4px 10px -6px #cccccc, 5px 3px 71px -11px rgba(255,255,255,0.7)');
 	*/
 }

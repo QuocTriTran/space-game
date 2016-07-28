@@ -23,8 +23,16 @@ var frames = 0;
 var collision;
 var stats;
 
+// TODO: eigentlich in Interface
+var scoreValues = {
+    "itemCollected" : 10,
+    "enemyDestroyed" : 50,
+    "asteroidDestroyed" : 20
+};
+
 // Postprocessing
 var composer, glitchPass, glitchPassEnabled;
+
 
 // Document Ready Function
 $(function() {
@@ -34,8 +42,9 @@ $(function() {
     fileLoader = FileLoader();
     LoadingScreen();
     interface = Interface();
-    explosionParticleHandler = ExplosionParticleHandler();
     collision = Collision();
+    explosionParticleHandler = ExplosionParticleHandler();
+
 
     // alle 50ms prüfen, ob alle Files geladen sind
     var loadingLoop = setInterval(function() {
@@ -59,7 +68,7 @@ function init() {
     document.body.appendChild( container );
 
 
-	
+
     //while(!fileLoader.isReady()){};
     scene = new THREE.Scene();
 
@@ -166,6 +175,7 @@ function init() {
     container.appendChild( renderer.domElement );
     // Event-Listener
     window.addEventListener( 'resize', onWindowResize, false );
+    
 
 }
 
@@ -223,9 +233,8 @@ function render() {
         movement.move(delta);
         updateStars();
         updateAsteroids();
-
         updatePowerUps();
-        
+
         // Partikeleffekte am Raumschiff updaten
         player.updateParticleValues();
         // Explosionen updaten

@@ -52,7 +52,6 @@ function handleProjectiles() {
                         projectiles[i])) {
                     // successLaser(projectiles[i]);
                     hitAsteroid(j, "Laser");
-                    // destroyAsteroid(j);
                 }
             }
 
@@ -61,7 +60,6 @@ function handleProjectiles() {
                         projectiles[i])) {
                     // successRocket(projectiles[i]);
                     hitAsteroid(j, "Rocket");
-                    //destroyAsteroid(j);
                 }
             }
 
@@ -69,7 +67,6 @@ function handleProjectiles() {
                 if (collision.intersectSphereOther(asteroidHitBoxes[j],
                         projectiles[i])) {
                     hitAsteroid(j, "Explosion");
-                    //destroyAsteroid(j);
                 }
             }
 
@@ -82,6 +79,47 @@ function handleProjectiles() {
             }
 
         }
+
+        // Collect items via projectiles
+        for (var j = 0; j <= itemHitBoxes.length - 1; j++) {
+
+            if (projectiles[i].name === "LaserHitBox") {
+                if (collision.intersectBoxCylinder(itemHitBoxes[j],
+                        projectiles[i])) {
+                    // successLaser(projectiles[i]);
+                    console.log("Collision detected");
+                    collected(j);
+                }
+            }
+
+            else if (projectiles[i].name === "RocketHitBox") {
+                if (collision.intersectBoxCylinder(itemHitBoxes[j],
+                        projectiles[i])) {
+                    // successRocket(projectiles[i]);
+                    console.log("Collision detected");
+                    collected(j);
+                }
+            }
+
+            else if (projectiles[i].name === "Explosion") {
+                if (collision.intersectSphereBox(itemHitBoxes[j],
+                        projectiles[i])) {
+                    console.log("Collision detected");
+                    collected(j);
+                }
+            }
+
+            else if (projectiles[i].name === "MachineGun") {
+                if (collision.intersectSphereBox(itemHitBoxes[j],
+                        projectiles[i])) {
+                    // successMachineGunBullet(projectiles[i]);
+                    console.log("Collision detected");
+                    collected(j);
+                }
+            }
+
+        }
+
 
         // Gegner wird getroffen
         // for (var j = 0; j < enemies.length - 1; j++) {
@@ -194,6 +232,7 @@ function handlePlayerPopupCollision() {
         for (var j = 0; j < itemHitBoxes.length; j++) {
             if (collision.intersectShipHitBoxBox(playerHitBoxes[i],
                     itemHitBoxes[j])) {
+                console.log("Collision detected");
                 collected(j);
             }
         }

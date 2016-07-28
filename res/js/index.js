@@ -6,6 +6,8 @@ var rayParticleRenderer, rayStart, rayEnd;
 
 var fileLoader = FileLoader();
 
+
+
 $(function () {
 
     var container;
@@ -23,7 +25,7 @@ $(function () {
             animate();
 
         }
-    }, 500);
+    }, 50);
 
 
 
@@ -138,11 +140,11 @@ $(function () {
         window.addEventListener("resize", onWindowResize, false);
         window.addEventListener("mousemove", onMouseMove, false);
 
+
+
+
     }
-
-
-
-
+    
 
 
     function onWindowResize() {
@@ -171,7 +173,6 @@ $(function () {
         render();
 
         // animation goes here
-
         moveSpaceship();
     }
 

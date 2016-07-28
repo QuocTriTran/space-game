@@ -121,7 +121,7 @@ function Movement() {
                         document.addEventListener('mousemove', moveCallback, false);
                         window.addEventListener('keydown', kdown);
                         window.addEventListener('keyup', kup);
-                        console.log("Added Event Listener");
+                       
 
                         element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
 
