@@ -14,7 +14,7 @@ function createStars(){
 
     var star, material, alpha;
 
-    for (var count =0; count < 150; count++){
+    for (var count =0; count < 300; count++){
 
         material = new THREE.MeshBasicMaterial( {
 
@@ -78,7 +78,9 @@ function createAsteroids(){
      astOriginal.scale.x = astOriginal.scale.y = astOriginal.scale.z = rndScale;
 
      hitGeometry =  new THREE.SphereGeometry(4, 32, 32);
+
      hitGeometry.scale.x = hitGeometry.scale.y = hitGeometry.scale.z = rndScale;
+
 
       var colSphereMaterial = new THREE.MeshBasicMaterial({
                     transparent: true,
@@ -94,6 +96,7 @@ function createAsteroids(){
      asteroids.push(astOriginal);
      asteroidHitBoxes.push(astHitBox);
      scene.add(astOriginal);
+
   }
 
 
@@ -128,17 +131,25 @@ function updateAsteroids(){
 
     if((tmpAsteroid.position.x < biggerSphere.position.x - biggerSphereRadius || tmpAsteroid.position.x > biggerSphere.position.x + biggerSphereRadius ||tmpAsteroid.position.y < biggerSphere.position.y - biggerSphereRadius || tmpAsteroid.position.y > biggerSphere.position.y + biggerSphereRadius || tmpAsteroid.position.z < biggerSphere.position.z - biggerSphereRadius|| tmpAsteroid.position.z > biggerSphere.position.z + biggerSphereRadius) ){
 
-            newVec = new THREE.Vector3(Math.random(), Math.random(), Math.random());
+            newVec = new THREE.Vector3(Math.random() , Math.random() , Math.random());
             newVec.normalize();
 
-            //console.log("new VEC : " + newVec.x + " " + newVec.y + " " + newVec.z );
-            tmpAsteroid.position.x = ship.position.x + biggerSphereRadius * newVec.x;
-            tmpAsteroid.position.y = ship.position.y + biggerSphereRadius * newVec.y;
-            tmpAsteroid.position.z = ship.position.z + biggerSphereRadius * newVec.z;
+            var rnd1,rnd2, rnd3; 
 
-            tmpHitBox.position.x = ship.position.x + biggerSphereRadius * newVec.x;
-            tmpHitBox.position.y = ship.position.y + biggerSphereRadius * newVec.y;
-            tmpHitBox.position.z = ship.position.z + biggerSphereRadius * newVec.z;
+            rnd1 = Math.sign(Math.sign(Math.random()-0.5) + 0.1); 
+            rnd2 = Math.sign(Math.sign(Math.random()-0.5) + 0.1); 
+            rnd3 = Math.sign(Math.sign(Math.random()-0.5) + 0.1); 
+
+            //console.log("new VEC : " + newVec.x + " " + newVec.y + " " + newVec.z );
+            tmpAsteroid.position.x = ship.position.x + rnd1 * biggerSphereRadius * newVec.x;
+            tmpAsteroid.position.y = ship.position.y + rnd2 * biggerSphereRadius * newVec.y;
+            tmpAsteroid.position.z = ship.position.z + rnd3 * biggerSphereRadius * newVec.z;
+
+            tmpHitBox.position.x = ship.position.x + rnd1 * biggerSphereRadius * newVec.x;
+            tmpHitBox.position.y = ship.position.y + rnd2 * biggerSphereRadius * newVec.y;
+            tmpHitBox.position.z = ship.position.z + rnd3 * biggerSphereRadius * newVec.z;
+
+             console.log("new VEK : " + tmpAsteroid.position.x + " " + tmpAsteroid.position.y + " " + tmpAsteroid.position.z );
 
        }
 
@@ -202,7 +213,7 @@ function hitAsteroid(asteroidNumber, collisionType){
 
 
       case "Laser" :
-
+          console.log("LASERHIT");
           asteroidsHP[asteroidNumber] -= laserDamage;
 
           break;

@@ -2,7 +2,11 @@
 var laserAudio;
 var rocketAudio;
 var explosionAudio;
+
+var powerUpAudioSource;
+
 var powerUpAudio;
+
 //var MGAudio;
 
 
@@ -47,6 +51,12 @@ var FileLoader = function() {
         "../res/textures/PowerUpHealthTex.png",
         "../res/textures/PowerUpShieldTex.png",
         //"../res/textures/PowerUpRocketTex.png",
+        "../res/textures/PowerUpRocketTex.png",
+        "../res/textures/PowerUpRocket2Tex.png",
+        "../res/textures/PowerUpRocket4Tex.png",
+        "../res/textures/PowerUpRocket8Tex.png",
+        "../res/textures/GeldsackTex.jpg",
+        "../res/textures/GeldsackFacePalmTex.jpg",
 
         // Models
         //"../res/meshes/HeroShipV1.json",
@@ -60,7 +70,9 @@ var FileLoader = function() {
         "../res/meshes/PowerUpRocket.json",
         "../res/meshes/PowerUpRocket2.json",
         "../res/meshes/PowerUpRocket4.json",
-        "../res/meshes/PowerUpShield.json"
+        "../res/meshes/PowerUpRocket8.json",
+        "../res/meshes/PowerUpShield.json",
+        "../res/meshes/Geldsack.json"
     ];
     // Key-Value-Store für die geladenen Dateien (Key: Name => Value: Inhalt)
     var loadedFiles = {};
@@ -124,8 +136,12 @@ var FileLoader = function() {
     laserAudioSource.src = '../res/sounds/gun.wav';
     laserAudio.appendChild(laserAudioSource)
 
+
     powerUpAudio = document.createElement('audio');
-    var powerUpAudioSource = document.createElement('source');
+    powerUpAudioSource = document.createElement('source');
+
+  
+  
     powerUpAudioSource.src = '../res/sounds/powerup.wav';
     powerUpAudio.appendChild(powerUpAudioSource);
 
