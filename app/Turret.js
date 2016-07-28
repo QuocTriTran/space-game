@@ -99,7 +99,7 @@ function Turret(){
             } else if (leftrgt < 0) {
                 leftrgt += 0.5;
             }
-            //console.log("HEllo");
+            
             if (weaponTurret.rotation.x < 1.4 && weaponTurret.rotation.x > -1.4) {
                 weaponTurret.rotateX(rotupdn / 30);
             }else if(weaponTurret.rotation.x <= -1.4 && rotupdn > 0){
@@ -107,23 +107,16 @@ function Turret(){
             }else if(weaponTurret.rotation.x >= 1.4 && rotupdn < 0){
                 weaponTurret.rotateX(rotupdn / 30);
             }
+            
             if (weaponTurret.rotation.z < 1.4 && weaponTurret.rotation.z > -1.4) {
                 weaponTurret.rotateZ(leftrgt / 30);
-                //console.log("Test1");
             }else if(weaponTurret.rotation.z <= -1.4 && leftrgt > 0){
-                //console.log("Test2");
                 weaponTurret.rotateZ(leftrgt / 30);
             }else if(weaponTurret.rotation.z >= 1.4 && leftrgt < 0){
-              //  console.log("Test3");
                 weaponTurret.rotateZ(leftrgt / 30);
             }
-            //console.log("LeftRight: " + leftrgt + "  UpDown: " + rotupdn);
-            //console.log(weaponTurret.rotation);
             weaponTurret.rotation.set(weaponTurret.rotation.x,0,weaponTurret.rotation.z);
-            //if (weaponTurret.rotation.y <= 1){
-               // weaponTurret.rotateZ(leftrgt / 30);
-            //}else if(weaponTurret.rotation.y <= 1)
-            //console.log(weaponTurret.rotation);
+            
         }
 
     }

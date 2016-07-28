@@ -78,13 +78,13 @@ function initializeWeapons(){
 	//initialize clock for time-control
 	weaponClock = new THREE.Clock();
 
-<<<<<<< HEAD
+
 	//document.addEventListener('leftclick', shoot, false);
 
 	document.body.addEventListener('mousedown', function (e){
         if(e.button === 0){
-    	   //shoot();
-			shoott();
+    	   shoot();
+
         }
         else if(e.button === 1){
         //MGShoot();
@@ -92,10 +92,11 @@ function initializeWeapons(){
         }
     }, false);
 
-=======
+
 	//add Listener for left and rigth mouseclick
-	document.body.addEventListener('click', shoot, false);
->>>>>>> af0aaf0a3554a05879dfaa4723a79b463b8bcaaf
+	//document.body.addEventListener('click', shoot, false);
+
+	
 }
 
 //One MG-firering burst (5 Bullets). 12 Bursts in one mg shot
@@ -157,6 +158,7 @@ function MGShoot(){
 function shoot(e){
 	if(e.button == 0){
 		shootLaser();
+		shoott();
 	}
 	else{
 		shootRocket();
@@ -172,7 +174,7 @@ function shootLaser(){
 	  	laserAudio.play();
 
 	  	//reset timer
-	  	timeSinceShoot = 0;
+	  	//timeSinceShoot = 0;
 
 		//create mesh
 	 	var laser 		= new THREE.Mesh(shootGeometry,  shootMaterial);
@@ -230,34 +232,49 @@ function successLaser(bul){
 }
 
 function shoott(){
-	//if(timeSinceShoot > 0.4){
+	if(timeSinceShoot > 0.4){
 		timeSinceShoot = 0;
 		//create mesh
-		bullet1 = new THREE.Mesh(shootGeometry, shootMaterial);
+		var tlaser = new THREE.Mesh(shootGeometry, shootMaterial);
+		var tlaserHitBox = new THREE.Mesh(hitBoxGeometry, hitBoxMaterial);
 
-		bullet1.name = "Laser2";
+		tlaser.name  = "Laser";
+		tlaserHitBox.name = "LaserHitBox";
 		//translate to ship position
-		bullet1.position.x = ship.position.x;
-		bullet1.position.y = ship.position.y;
-		bullet1.position.z = ship.position.z;
+		tlaser.position.x = ship.position.x;
+		tlaser.position.y = ship.position.y;
+		tlaser.position.z = ship.position.z;
+
+		//translate HitBox to ship position
+		tlaserHitBox.position.x = ship.position.x;
+		tlaserHitBox.position.y = ship.position.y;
+		tlaserHitBox.position.z = ship.position.z;
 		//set orientation of the bullet according to ship orientation
 		var tempvec = new THREE.Vector3(refPoint.matrixWorld.elements[12],refPoint.matrixWorld.elements[13],refPoint.matrixWorld.elements[14]);
-		bullet1.lookAt(tempvec);
-		//rotate: laser beam would be pointing up otherwise
-		bullet1.rotateX(1.57);
-	    bullet1.rotateX(3.1415);
-		//add bullet to scene
-		scene.add(bullet1);
 
+		tlaser.lookAt(tempvec);
+
+		tlaserHitBox.lookAt(tempvec);
+		//rotate: laser beam would be pointing up otherwise
+		tlaser.rotateX(1.57);
+	    tlaser.rotateX(3.1415);
+
+		tlaserHitBox.rotateX(1.57);
+		tlaserHitBox.rotateX(3.1415);
+		//add bullet to scene
+		scene.add(tlaser);
+		tlaserHitBox.visible = false;
+		scene.add(tlaserHitBox);
 		//add bullet to bullet list so it will be moved
-		projectiles.push(bullet1);
+		projectiles.push(tlaser);
+		projectiles.push(tlaserHitBox);
 
 		//console.log(bullet1.name);
 
 		//collidableMeshList.push(bullet1);
 		//play lazer-sound
 		laserAudio.play();
-	//}
+	}
 }
 
 

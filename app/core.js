@@ -66,14 +66,8 @@ function init() {
     clock = new THREE.Clock();
 
 
-<<<<<<< HEAD
-    crosshair = new Crosshairs();
-    crosshair.init();
-    
-    turret = new Turret();
-    turret.init();
-=======
->>>>>>> af0aaf0a3554a05879dfaa4723a79b463b8bcaaf
+
+
 
     /********** Szene füllen **********/
 
@@ -108,6 +102,9 @@ function init() {
 
     crosshair = new Crosshairs();
     crosshair.init();
+
+    turret = new Turret();
+    turret.init();
 
     initializeWeapons();
 
@@ -238,7 +235,7 @@ function render() {
     camera.update();
 
     if (glitchPassEnabled) {
-        composer.render();
+       composer.render();
     } else {
         renderer.render(scene, camera);
     }
