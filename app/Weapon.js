@@ -85,20 +85,11 @@ function initializeWeapons(){
 
 	//document.addEventListener('leftclick', shoot, false);
 
-	document.body.addEventListener('mousedown', function (e){
-        if(e.button === 0){
-    	   shoot();
 
-        }
-        else if(e.button === 1){
-        //MGShoot();
-            console.log("right");
-        }
-    }, false);
 
 
 	//add Listener for left and rigth mouseclick
-	//document.body.addEventListener('click', shoot, false);
+	document.body.addEventListener('click', shoot, false);
 
 	
 }
@@ -244,11 +235,14 @@ function successLaser(projectileIndex){
 function shoott(){
 	if(timeSinceShoot > 0.4){
 		timeSinceShoot = 0;
+
+		//play lazer-sound
+		laserAudio.play();
+
 		//create mesh
 		var tlaser = new THREE.Mesh(shootGeometry, shootMaterial);
 		var tlaserHitBox = new THREE.Mesh(hitBoxGeometry, hitBoxMaterial);
 
-		tlaser.name  = "Laser";
 		tlaserHitBox.name = "LaserHitBox";
 		//translate to ship position
 		tlaser.position.x = ship.position.x;
@@ -267,23 +261,28 @@ function shoott(){
 		tlaserHitBox.lookAt(tempvec);
 		//rotate: laser beam would be pointing up otherwise
 		tlaser.rotateX(1.57);
-	    tlaser.rotateX(3.1415);
+	    tlaser.rotateX(Math.PI);
 
 		tlaserHitBox.rotateX(1.57);
-		tlaserHitBox.rotateX(3.1415);
+		tlaserHitBox.rotateX(Math.PI);
+
+
+		tlaser.translateY(-85);
+		tlaserHitBox.translateY(-85);
 		//add bullet to scene
 		scene.add(tlaser);
 		tlaserHitBox.visible = false;
 		scene.add(tlaserHitBox);
 		//add bullet to bullet list so it will be moved
+
 		projectiles.push(tlaser);
+
+		tlaserHitBox.userData = tlaser;
 		projectiles.push(tlaserHitBox);
 
 		//console.log(bullet1.name);
 
 		//collidableMeshList.push(bullet1);
-		//play lazer-sound
-		laserAudio.play();
 	}
 }
 

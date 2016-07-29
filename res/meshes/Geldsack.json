@@ -39,10 +39,6 @@
 					"colorSpecular": [0.5, 0.5, 0.5],
 					"depthTest": true,
 					"depthWrite": true,
-<<<<<<< HEAD
-=======
-					"mapDiffuseWrap": ["repeat", "repeat"],
->>>>>>> afd4125172b2e7a1553f8d58ab43ad9e629b48ef
 					"shading": "Lambert",
 					"specularCoef": 50,
 					"opacity": 1.0,
@@ -59,10 +55,6 @@
 					"colorSpecular": [0.5, 0.5, 0.5],
 					"depthTest": true,
 					"depthWrite": true,
-<<<<<<< HEAD
-=======
-					"mapDiffuseWrap": ["repeat", "repeat"],
->>>>>>> afd4125172b2e7a1553f8d58ab43ad9e629b48ef
 					"shading": "Lambert",
 					"specularCoef": 50,
 					"opacity": 1.0,
@@ -79,10 +71,6 @@
 					"colorSpecular": [0.5, 0.5, 0.5],
 					"depthTest": true,
 					"depthWrite": true,
-<<<<<<< HEAD
-=======
-					"mapDiffuseWrap": ["repeat", "repeat"],
->>>>>>> afd4125172b2e7a1553f8d58ab43ad9e629b48ef
 					"shading": "Lambert",
 					"specularCoef": 50,
 					"opacity": 1.0,
@@ -99,10 +87,6 @@
 					"colorSpecular": [0.5, 0.5, 0.5],
 					"depthTest": true,
 					"depthWrite": true,
-<<<<<<< HEAD
-=======
-					"mapDiffuseWrap": ["repeat", "repeat"],
->>>>>>> afd4125172b2e7a1553f8d58ab43ad9e629b48ef
 					"shading": "Lambert",
 					"specularCoef": 50,
 					"opacity": 1.0,
@@ -119,10 +103,6 @@
 					"colorSpecular": [0.5, 0.5, 0.5],
 					"depthTest": true,
 					"depthWrite": true,
-<<<<<<< HEAD
-=======
-					"mapDiffuseWrap": ["repeat", "repeat"],
->>>>>>> afd4125172b2e7a1553f8d58ab43ad9e629b48ef
 					"shading": "Lambert",
 					"specularCoef": 50,
 					"opacity": 1.0,

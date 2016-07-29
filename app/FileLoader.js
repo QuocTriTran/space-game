@@ -37,7 +37,6 @@ var FileLoader = function() {
         "../res/textures/Crosshair14.png",
         "../res/textures/Crosshair15.png",
         "../res/textures/Crosshair16.png",
-        "../res/textures/batman.png",
 
         "../res/textures/TextureHero.png",
         "../res/textures/particle.png",
