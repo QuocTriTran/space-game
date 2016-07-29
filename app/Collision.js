@@ -184,14 +184,12 @@ var Collision = function() {
                 (sphere.position.z - other.position.z) * (sphere.position.z - other.position.z));
         // if the distance between the centers is smaller the the sum of the
         // radii the spheres intersect
-
-    //console.log(sphere.parameters.radius);
-    // console.log(sphere.geometry.parameters.radius);
         return distance < (sphere.geometry.parameters.radius + other.geometry.parameters.radius);
     }
 
     // Checks if there is an intersection between  a sphere and a box
     function intersectSphereBox(sphere, box) {
+
         // get box closest point to sphere center by clamping
         var x = Math.max(minX(box), Math.min(sphere.position.x, maxX(box)));
         var y = Math.max(minY(box), Math.min(sphere.position.y, maxY(box)));
@@ -206,7 +204,7 @@ var Collision = function() {
         return distance < sphere.geometry.parameters.radius;
     }
 
-    // CHecks if there is an intersection between a sphere and a cylinder.
+    // Checks if there is an intersection between a sphere and a cylinder.
     // Appoximates the cylinder as a box
     function intersectSphereCylinder(sphere, cylinder) {
 
@@ -221,7 +219,7 @@ var Collision = function() {
 
     }
 
-    // CHecks if there is an intersection between a box and a cylinder.
+    // Checks if there is an intersection between a box and a cylinder.
     // Appoximates the cylinder as a box
     function intersectBoxCylinder(box, cylinder) {
 
@@ -246,8 +244,10 @@ var Collision = function() {
 
         // initialize box
         var boxGeometry = new THREE.BoxGeometry(x,y,z);
-        var boxMaterial = new THREE.MeshBasicMaterial({ color:0x00FF00 });
+        var boxMaterial = new THREE.MeshBasicMaterial({ color:0xFFFF00 });
         var hitBox = new THREE.Mesh(boxGeometry, boxMaterial);
+
+        hitBox.visible = false;
 
         // transform box to the position of the cylinder
         hitBox.applyMatrix(cylinder.matrix);
@@ -266,10 +266,6 @@ var Collision = function() {
         var distance = Math.sqrt((x - sphere.position.x) * (x - sphere.position.x) +
                            (y - sphere.position.y) * (y - sphere.position.y) +
                            (z - sphere.position.z) * (z - sphere.position.z));
-
-        // console.log(distance);
-        // console.log(sphere.geometry.parameters.radius);
-
 
         // if the distance is smaller than the radius of the sphere there is an intersection
         return distance < sphere.geometry.parameters.radius;

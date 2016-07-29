@@ -51,12 +51,11 @@ function Player() {
             var hitBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
             hitBoxCenter = new THREE.Mesh(hitBoxCenterGeometry, hitBoxMaterial);
 
-            var hitBoxCenterGeometry = new THREE.BoxGeometry(10,2,5);
-            hitBoxLeftWing = new THREE.Mesh(hitBoxCenterGeometry, hitBoxMaterial);
+            var hitBoxWingGeometry = new THREE.BoxGeometry(10,2,5);
+            hitBoxLeftWing = new THREE.Mesh(hitBoxWingGeometry, hitBoxMaterial);
             hitBoxLeftWing.position.x = -5;
 
-            var hitBoxCenterGeometry = new THREE.BoxGeometry(10,2,5);
-            hitBoxRightWing = new THREE.Mesh(hitBoxCenterGeometry, hitBoxMaterial);
+            hitBoxRightWing = new THREE.Mesh(hitBoxWingGeometry, hitBoxMaterial);
             hitBoxRightWing.position.x = 5;
 
             playerHitBoxes.push(hitBoxCenter);
