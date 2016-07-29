@@ -16,7 +16,11 @@ var crosshair;
 var ship;
 var player;
 var movement;
+var turret;
+var explosionParticleHandler;
+var frames = 0;
 var particleHandler;
+
 var collision;
 var stats;
 
@@ -73,6 +77,8 @@ function init() {
 
 
 
+
+
     /********** Szene füllen **********/
 
     var light, object;
@@ -106,6 +112,9 @@ function init() {
 
     crosshair = new Crosshairs();
     crosshair.init();
+
+    turret = new Turret();
+    turret.init();
 
     initializeWeapons();
 
@@ -167,7 +176,7 @@ function init() {
     container.appendChild( renderer.domElement );
     // Event-Listener
     window.addEventListener( 'resize', onWindowResize, false );
-    
+
 
 }
 
@@ -236,7 +245,7 @@ function render() {
     camera.update();
 
     if (glitchPassEnabled) {
-        composer.render();
+       composer.render();
     } else {
         renderer.render(scene, camera);
     }
