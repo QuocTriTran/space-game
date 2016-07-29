@@ -19,6 +19,7 @@ var movement;
 var turret;
 var explosionParticleHandler;
 var frames = 0;
+var particleHandler;
 
 var collision;
 var stats;
@@ -43,7 +44,7 @@ $(function() {
     LoadingScreen();
     interface = Interface();
     collision = Collision();
-    explosionParticleHandler = ParticleHandler();
+    particleHandler = ParticleHandler();
 
 
     // alle 50ms prüfen, ob alle Files geladen sind
@@ -238,7 +239,7 @@ function render() {
         // Partikeleffekte am Raumschiff updaten
         player.updateParticleValues();
         // Explosionen updaten
-        explosionParticleHandler.update();
+        particleHandler.update();
     }
 
     camera.update();

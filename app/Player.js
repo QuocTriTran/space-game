@@ -47,8 +47,6 @@ function Player() {
             ship.position.set(0, 0, 0);
             scene.add(ship);
 
-
-
             var hitBoxCenterGeometry = new THREE.BoxGeometry(5,2,20);
             var hitBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
             hitBoxCenter = new THREE.Mesh(hitBoxCenterGeometry, hitBoxMaterial);
@@ -134,4 +132,4 @@ function Player() {
 
     };
 
-};
+}

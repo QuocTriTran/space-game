@@ -1,4 +1,4 @@
-var cross1,cross2,cross3,cross4,cross5,cross6,cross7,cross8,cross9,cross10,cross11,cross12,cross13,cross14,cross15,crossretro;
+var cross1,cross2,cross3,cross4,cross5,cross6,cross7,cross8,cross9,cross10,cross11,cross12,cross13,cross14,cross15,cross16;
 var crosses = [];
 var pos = 0;
 var old = 0;
@@ -158,6 +158,7 @@ function Crosshairs() {
             cross15.visible = false;
             crosses.push(cross15);
 
+
             mapA = fileLoader.get("Crosshair16");
 
             materialA = new THREE.SpriteMaterial({map: mapA});
@@ -168,34 +169,16 @@ function Crosshairs() {
             cross16.visible = false;
             crosses.push(cross16);
 
-            mapA = fileLoader.get("Crosshair");
-
-            materialA = new THREE.SpriteMaterial({map: mapA});
-
-            crossretro = new THREE.Sprite(materialA);
-            crossretro.position.set(0, 10, -40);
-            crossretro.scale.set(6.0, 6.0, 1.0);
-            crossretro.visible = false;
-            crosses.push(crossretro);
-
-            mapA = fileLoader.get("batman");
-
-            materialA = new THREE.SpriteMaterial({map: mapA});
-
-            batman = new THREE.Sprite(materialA);
-            batman.position.set(0, 10, -40);
-            batman.scale.set(10.0, 6.0, 1.0);
-            batman.visible = false;
-            crosses.push(batman);
-
             cross1.visible = true;
             ship.add(cross1);
 
         },
 
-        switch:function(){
-            if(pos == 17){
-                old = 17;
+        switch:function(){   
+
+            if(pos == crosses.length-1){
+                old = crosses.length-1;
+
                 pos = 0;
             }
             else{

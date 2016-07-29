@@ -113,7 +113,7 @@ function updatePowerUps (){
 function collected(itemNumber){
 
 
-    console.log("itemCollected");
+    //console.log("itemCollected");
     changeScore(scoreValues["itemCollected"]);
 
 	var tmpItem =  types[itemNumber];
@@ -122,7 +122,7 @@ function collected(itemNumber){
 	switch (tmpItem){
 
 		case "HEALTH":
-            explosionParticleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x00FF00);
+            particleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x00FF00);
 			powerUpAudio.play();
 			changeHP(50);
 
@@ -154,7 +154,7 @@ function collected(itemNumber){
 		case "MONEY" : 
 
 				changeMoney(20); 
-				 explosionParticleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x00FF00);
+				 particleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x00FF00);
 			break; 
 
 		case "FACEPALM":
@@ -163,8 +163,7 @@ function collected(itemNumber){
 			break;  
 
         default:
-
-            explosionParticleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x6495ED);
+            particleHandler.addExplosion(itemHitBoxes[itemNumber].position, 5, 0x6495ED);
         break;
 	}
 

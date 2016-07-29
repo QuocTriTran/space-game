@@ -58,7 +58,7 @@ function handleProjectiles() {
             else if (projectiles[i].name === "RocketHitBox") {
                 if (collision.intersectSphereCylinder(asteroidHitBoxes[j],
                         projectiles[i])) {
-                    // successRocket(projectiles[i]);
+                     successRocket(i);
                     hitAsteroid(j, "Rocket");
                 }
             }
@@ -232,7 +232,7 @@ function handlePlayerPopupCollision() {
         for (var j = 0; j < itemHitBoxes.length; j++) {
             if (collision.intersectShipHitBoxBox(playerHitBoxes[i],
                     itemHitBoxes[j])) {
-                console.log("Collision detected");
+                //console.log("Collision detected");
                 collected(j);
             }
         }

@@ -30,11 +30,11 @@ function HaloParticleRenderer(particleColor, nParticles, particleTexture, lifeti
 
         var radius = initialRadius;
         var angle = Math.random()*Math.PI*2;
-        particle.x = Math.cos(angle)*radius;
-        particle.z = Math.sin(angle)*radius;
+        particle.x += Math.cos(angle)*radius;
+        particle.z += Math.sin(angle)*radius;
 
 
-        particle.velocity = particle.sub(this.startVector);
+        particle.velocity = particle.clone().sub(this.startVector.clone());
 
         this.particles.vertices.push(particle);
     }
@@ -52,17 +52,15 @@ function HaloParticleRenderer(particleColor, nParticles, particleTexture, lifeti
         var time = this.clock.getElapsedTime();
         
         if (this.running) {
-            this.particleSystem.rotateY(0.01);
+            // this.particleSystem.rotateY(0.01);
 
 
             for (var i = 0; i < this.particles.vertices.length; i++) {
                 var particle = this.particles.vertices[i];
 
-                particle.addScaledVector(particle.velocity.add(new THREE.Vector3(
-                    (Math.random()-0.5)*0.1,
-                    (Math.random()-0.5)*0.1,
-                    (Math.random()-0.5)*0.1
-                )), 0.1);
+                particle.x += particle.velocity.x*0.1 + (Math.random()-0.5)*0.1;
+                particle.y += particle.velocity.y*0.1 + (Math.random()-0.5)*0.1;
+                particle.z += particle.velocity.z*0.1 + (Math.random()-0.5)*0.1;
 
                 this.particleSystem.geometry.__dirtyVertices = true;
             }

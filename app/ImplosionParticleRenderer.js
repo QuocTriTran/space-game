@@ -1,5 +1,5 @@
 function ImplosionParticleRenderer(particleColor, nParticles, particleTexture, startVector, size) {
-
+    
     this.startVector = startVector;
     this.particleCount = nParticles;
     this.color = particleColor;
@@ -22,16 +22,17 @@ function ImplosionParticleRenderer(particleColor, nParticles, particleTexture, s
 
     for (var p = 0; p < this.particleCount; p++) {
         var particle = new THREE.Vector3(
-            this.startVector.x,
-            this.startVector.y,
-            this.startVector.z
+            startVector.x,
+            startVector.y,
+            startVector.z
         );
 
         particle.x += Math.random()-0.5;
         particle.y += Math.random()-0.5;
         particle.z += Math.random()-0.5;
 
-        particle.velocity = particle.sub(this.startVector);
+
+        particle.velocity = particle.clone().sub(startVector.clone());
 
         this.particles.vertices.push(particle);
     }
@@ -46,19 +47,23 @@ function ImplosionParticleRenderer(particleColor, nParticles, particleTexture, s
 
 
     this.update = function () {
-
-        this.particleSystem.rotateX(0.5);
-        this.particleSystem.rotateY(0.5);
-        this.particleSystem.rotateZ(0.5);
+        // this.particleSystem.rotateX(0.5);
+        // this.particleSystem.rotateY(0.5);
+        // this.particleSystem.rotateZ(0.5);
 
         if (this.running) {
-            
+
             var pCount = this.particleCount;
 
             while (pCount--) {
                 var particle = this.particles.vertices[pCount];
 
-                particle.addScaledVector(particle.velocity, this.currentMovement*0.5);
+
+                particle.x += particle.velocity.x*this.currentMovement*0.5;
+                particle.y += particle.velocity.y*this.currentMovement*0.5;
+                particle.z += particle.velocity.z*this.currentMovement*0.5;
+
+                // particle.addScaledVector(particle.velocity, this.currentMovement*0.2);
 
                 this.particleSystem.geometry.__dirtyVertices = true;
             }
