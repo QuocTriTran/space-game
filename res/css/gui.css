@@ -30,7 +30,7 @@ body {
 #ammoBox {
 	position: fixed;
 	top: 20px;
-	right: 20px;
+	right: 80px;
 	width: 80px;
 	height: 80px;
 	color: yellow;
@@ -40,7 +40,7 @@ body {
 #currentAmmo {
 	position: fixed;
 	top: 15px;
-	right: 55px;
+	right: 85px;
 	font-size: 30px;
 	text-align: right;
 }
@@ -48,7 +48,7 @@ body {
 #ammoDivider {
 	position: fixed;
 	top: 35px;
-	right: 50px;
+	right: 80px;
 	font-size: 10px;
 }
 
@@ -62,13 +62,14 @@ body {
 
 #ammopic{
 	margin-top: 10px;
+	margin-right: 40px;
 	position: fixed;
 	top: 0px;
 	bottom: 0px;
-	width: 80px;
-	height: 80px;
+	width: 128px;
+	height: 64px;
 	opacity: 0.3;
-	background: transparent url("../img/rocketplaceholder.png");
+	//background: transparent url("../textures/Rocket.png");
 }
 
 #bg1 {
