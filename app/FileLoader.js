@@ -67,7 +67,7 @@ var FileLoader = function () {
         "../res/textures/sky_sphere_map2.png",
         "../res/textures/Spartan_Laser_Combined_V1.jpg",
         "../res/textures/tex.jpg",
-        "../res/textures/TextureEnemyShipOne.jpg",
+        "../res/textures/TextureEnemyShipOne.png",
         "../res/textures/TextureHero.png",
         "../res/textures/VengeanceMaterial.png",
 
