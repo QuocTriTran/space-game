@@ -13,7 +13,8 @@ function handleAsteroids() {
         for (var j = i + 1; j <= asteroids.length - 1; j++) {
             if (collision.intersectSphereOther(asteroidHitBoxes[i],
                 asteroidHitBoxes[j])) {
-                asteroidCollision(i, j);
+                //asteroidCollision(i, j);
+                asteroids[i].collide(asteroids[j], "asteroid");
             }
         }
         // Kollision mit Player
@@ -21,7 +22,8 @@ function handleAsteroids() {
             if (collision.intersectSphereShipHitBox(asteroidHitBoxes[i],
                 playerHitBoxes[j])) {
                 //console.log("COLLIDE");
-                destroyAsteroid(i);
+                //destroyAsteroid(i);
+                asteroids[i].collide(player, "player");
                 // asteroidHitBySpaceship(i);
                 player.playerHitByAsteroid();
             }
@@ -53,10 +55,11 @@ function handleProjectiles() {
         // Asteroidentreffer
         if (projectiles[i].name === "LaserHitBox") {
             for (var j = 0; j <= asteroidHitBoxes.length - 1; j++) {
-                if (collision.intersectSphereCylinder(asteroidHitBoxes[j],
+                if (collision.intersectSphereCylinder(asteroids[i].getHitBox(),
                     projectiles[i])) {
                     successLaser(i);
-                    hitAsteroid(j, "Laser");
+                    //hitAsteroid(j, "Laser");
+                    asteroids[j].collide(projectiles[i], "laser");
                     projectileSucceded = true;
                     break;
                 }
@@ -68,7 +71,7 @@ function handleProjectiles() {
             for (var j = 0; j <= asteroidHitBoxes.length - 1; j++) {
                 if (collision.intersectSphereCylinder(asteroidHitBoxes[j],
                     projectiles[i])) {
-                    console.log("hit");
+                    //console.log("hit");
                     successRocket(i);
                     //destruction implementet in handleCollision()
                     toDestroy = j;
@@ -85,7 +88,7 @@ function handleProjectiles() {
             for (var j = 0; j <= asteroidHitBoxes.length - 1; j++) {
                 if (collision.intersectSphereOther(asteroidHitBoxes[j],
                     projectiles[i])) {
-                    hitAsteroid(j, "Explosion");
+                    asteroids[j].collide(projectiles[i], "explosion");
                 }
             }
         }
@@ -97,7 +100,8 @@ function handleProjectiles() {
                     projectiles[i])) {
                     /** NICHT LÖSCHEN **/
                     // successMachineGunBullet(i);
-                    destroyAsteroid(j);
+                    // destroyAsteroid(j);
+                    asteroids[j].collide(projectiles[i], "machinegun");
                     // projectileSucceded = true;
                     // break;
                 }
@@ -323,7 +327,7 @@ function handleCollision() {
 
     collisionTimer += collisionClock.getDelta();
     handlePlayerPopupCollision();
-    handleAsteroids();
+    //handleAsteroids();
     handleProjectiles();
     /** NICHT LÖSCHEN **/
     //handlePlayerEnemyCollision();

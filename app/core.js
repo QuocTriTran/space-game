@@ -69,8 +69,7 @@ function init() {
     scene = new THREE.Scene();
 
     clock = new THREE.Clock();
-    
-    console.log("initialised");
+
 
     /********** Szene füllen **********/
 
@@ -85,17 +84,14 @@ function init() {
     object.position.set(0, 0, 0);
     scene.add(object);
 
-    console.log("filled");
 
     /********** Module laden **********/
 
     player = Player();
     player.init();
-    console.log("Payer");
 
     var world = World();
     world.init();
-    console.log("World1");
 
     createStars();
     //createAsteroids();
@@ -105,21 +101,16 @@ function init() {
 
     movement = Movement();
     movement.init();
-    console.log("Movement");
 
     interfaceInit();
-    console.log("Interface");
 
     crosshair = new Crosshairs();
     crosshair.init();
-    console.log("Crosshairs");
 
     initializeWeapons();
-    console.log("Weapons");
 
     stats = new Stats();
     container.appendChild(stats.dom);
-    console.log("Stats");
 
 
     /********** Camera **********/

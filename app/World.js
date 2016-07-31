@@ -1,15 +1,15 @@
 var sphere = new THREE.Object3D();
 var biggerSphere = new THREE.Object3D();
 var stars = [];
-var asteroids = [];
-var asteroidsHP = [];
-var asteroidSpeedVecs = [];
-var asteroidRotVecs = [];
-var asteroidHitBoxes = [];
+//var asteroids = [];
+//var asteroidsHP = [];
+//var asteroidSpeedVecs = [];
+//var asteroidRotVecs = [];
+//var asteroidHitBoxes = [];
 var smallSphereRadius = 1000;
 var biggerSphereRadius = 5000;
-var asteroidRadius = 3.5;
-var defaultAsteroidHP = 10;
+//var asteroidRadius = 3.5;
+//var defaultAsteroidHP = 10;
 
 //starStuff
 function createStars() {

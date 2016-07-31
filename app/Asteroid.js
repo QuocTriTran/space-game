@@ -11,7 +11,7 @@ var geometryA, textureA;
 var despawnDistance = 700; // aus core.js (Backplane der Camera) (changed)
 
 function Asteroid(location, radius, direction, speed, level, small) {
-    console.log("Asteroid init");
+    //console.log("Asteroid init");
     // Mesh setzen
     if (small) {
         geometryA = fileLoader.get("AsteroidV2");
@@ -47,7 +47,7 @@ function Asteroid(location, radius, direction, speed, level, small) {
     this.rotateSpeed = new THREE.Vector3(0.05 * Math.random(), 0.05 * Math.random(), 0.05 * Math.random());
 
     // setze Hitbox
-    this.hitBox = this.getHitBox();
+    this.hitBox = this.createHitBox();
 }
 
 Asteroid.prototype.constructor = Asteroid;
@@ -77,7 +77,8 @@ Asteroid.prototype.move = function (delta) {
 
 }
 
-Asteroid.prototype.collide(other, type) {
+Asteroid.prototype.collide = function(other, type) {
+    var changeScore = false;
     switch (type) {
         case "ASTEROID": case "asteroid": case "Asteroid":
             if (this.isSmall) {
@@ -98,22 +99,27 @@ Asteroid.prototype.collide(other, type) {
             break;
         case "PLAYER": case "player": case "Player":
             this.isAlive = false;
+            changeScore = true;
             break;
         case "LASER": case "laser": case "Laser":
             this.HP -= laserDamage;
+            changeScore = true;
+            console.log("hit");
             break;
         case "ROCKET": case "rocket": case "Rocket":
             this.HP -= rocketDamage;
+            changeScore = true;
             break;
         case "EXPLOSION": case "explosion": case "Explosion":
+            changeScore = true;
+            this.HP -= rocketDamage;
 
             break;
         case "MACHINEGUN": case "machinegun": case "Machinegun":
-            this.isAlive = false;
+            changeScore = true;
             break;
         default: console.log("Error: Collision with unknown");
     }
-
     if (this.HP <= 0) {
         this.isAlive = false;
     }
@@ -143,7 +149,8 @@ Asteroid.prototype.reflect = function (other) {
     other.direction.add(negAxis.multiplyScalar(factor));
 }
 
-Asteroid.prototype.getHitBox = function () {
+Asteroid.prototype.createHitBox = function() {
+    
     var mesh, geometry, material;
 
     // TODO: Kontrolliere: 4 initialer Radius
@@ -159,6 +166,10 @@ Asteroid.prototype.getHitBox = function () {
     mesh.position.set(this.position);
 
     return mesh;
+}
+
+Asteroid.prototype.getHitBox = function () {
+    return this.hitBox;
 }
 
 Asteroid.prototype.getObstacleHitBox = function () {

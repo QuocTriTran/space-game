@@ -305,7 +305,7 @@ function moveCallback(event) {
 
 function changeCam() {
 
-    console.log(camera.currentTargetName);
+    //console.log(camera.currentTargetName);
     if (camera.currentTargetName == 'Target') {
         isFirstPerson = true;
         crosses[pos].position.set(0, 0, -40);

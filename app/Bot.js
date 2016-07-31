@@ -8,8 +8,8 @@
 // Hier aufzurufen:
 // - init()
 // - update(delta)
-var asteroids = [], enemies = [], enemy, asteroid,
-    worldRadius, gameLevel;
+var asteroids = [], enemies = [], enemy, asteroid, asteroidHitBoxes = [],
+    worldRadius, gameLevel, numOfAsteroids = 50;
 
 function Bot() {
 
@@ -83,7 +83,7 @@ function Bot() {
 
                     asteroid = createAsteroid(level);
                     asteroids.push(asteroid);
-                    console.log("Respawned: " + asteroids.length);
+                    //console.log("Respawned: " + asteroids.length);
                     scene.add(asteroid);
                 }
             }
@@ -100,12 +100,19 @@ function Bot() {
                 level = enemy.level;
                 // altes Loeschen
                 scene.remove(enemy);
-                enemies.splice(i, 1);
-
-                enemy = createEnemy(level);
-                enemies.push(enemy);
-                console.log("Respawned: " + enemies.length);
-                scene.add(enemy);
+                // und gegebenenfalls neu setzen
+                enemies[i] = enemy;
+                if (enemy.respawn) {
+                    enemyHitBoxes[i] = enemy.hitBox;
+                    enemy = createEnemy(level);
+                    enemies[i] = enemy;
+                    enemyHitBoxes[i] = enemy.hitBox;
+                    scene.add(enemy);
+                } else {
+                    enemies.splice(i, 1);
+                    enemyHitBoxes.splice(i, 1);
+                }
+                //console.log("Respawned: " + enemies.length);
             }
         }
     }
@@ -114,7 +121,7 @@ function Bot() {
     // Erschaffe Asteroiden
     function createAsteroid(level) {
         var direction, alpha, beta, asteroidPosition, radius;
-        console.log("Enter Create Asteroid");
+        //console.log("Enter Create Asteroid");
         // Welt als Kugel -> Setze an den aeusseren 3/4 Rand
         var positionRadius = worldRadius / 4 * (1 + 3 * Math.random());
 
@@ -156,6 +163,8 @@ function Bot() {
         console.log("Finally Create Asteroid");
 
         asteroid = new Asteroid(asteroidPosition, 20, direction, speed, level, false);
+        console.log(asteroid.getHitBox());
+        asteroidHitBoxes.push(asteroid.getHitBox());
 
         return asteroid;
     }
@@ -164,7 +173,7 @@ function Bot() {
     function createEnemy(level) {
         var direction, alpha, beta, enemyPosition, radius,
             typ;
-        console.log("Enter Create Enemy");
+        //console.log("Enter Create Enemy");
         // Welt als Kugel -> Setze an den aeusseren 1/2 Rand
         // TODO: spawnRadius setzen
         var spawnRadius = 700;
@@ -194,7 +203,7 @@ function Bot() {
             default: typ = 4; // hardest weapon
         }
 
-        console.log("Finally Create Enemy");
+        //console.log("Finally Create Enemy");
         enemy = new Enemy(enemyPosition, speed, level, typ);
 
         return enemy;
@@ -218,7 +227,7 @@ function Bot() {
         // Asteroiden: Bewegung updaten
         for (asteroid of asteroids) {
             asteroid.move(delta);
-            console.log("Asteroid wird bewegt")
+            //console.log("Asteroid wird bewegt")
         }
 
         asteroids.sort(compare);
@@ -228,7 +237,7 @@ function Bot() {
         // ab d_min auf jeden Fall ausweichen
         for (enemy of enemies) {
             enemy.move(delta, asteroid, enemies);
-            console.log("Enemy wird bewegt")
+            //console.log("Enemy wird bewegt")
         }
 
     }
@@ -246,17 +255,16 @@ function Bot() {
             }
             // Asteroiden respawnen
             respawnAsteroids();
-            console.log("AI updated")
+            //console.log("AI updated")
         },
 
 
         // Initialisierer der Bots je Level
         initAI: function (level) {
-            console.log("Start initAI");
+            //console.log("Start initAI");
             // setzen unserer externen Faktoren
             worldRadius = 5000;
 
-            /*
             // erstelle Asteroiden
             // TODO: asteroiden wie loeschen
             if (level == 1) {
@@ -264,24 +272,24 @@ function Bot() {
             }
 
             // TODO: Levelabhaengigkeit klaeren
-            for (var i = 0; i < 200; i++) {
+            for (var i = 0; i < numOfAsteroids; i++) {
                 asteroid = createAsteroid(level);
                 asteroids.push(asteroid);
-                console.log(asteroids.length);
+                //console.log(asteroids.length);
                 scene.add(asteroid);
             }
-            */
-            console.log(level);
+
+            //console.log(level);
             // erstelle Gegner
             if (level == 1) {
                 enemies = [];
             }
 
             for (var i = 0; i < 15 * level; i++) {
-                console.log("Hello");
+                //console.log("Hello");
                 enemy = createEnemy(level);
                 enemies.push(enemy);
-                console.log(enemies.length);
+                //console.log(enemies.length);
                 scene.add(enemy);
             }
         },
