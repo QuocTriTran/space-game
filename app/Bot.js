@@ -256,6 +256,7 @@ function Bot() {
             // setzen unserer externen Faktoren
             worldRadius = 5000;
 
+            /*
             // erstelle Asteroiden
             // TODO: asteroiden wie loeschen
             if (level == 1) {
@@ -269,6 +270,7 @@ function Bot() {
                 console.log(asteroids.length);
                 scene.add(asteroid);
             }
+            */
             console.log(level);
             // erstelle Gegner
             if (level == 1) {
