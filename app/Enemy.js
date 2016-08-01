@@ -2,8 +2,9 @@ var minObstacleDistance = 100;
 var maxAsteroidSize = 30;
 var guardingRadius = 50;
 var minDistanceToPlayer = 200;
-var maxShipAngle = 70 * (Math.PI / 360);
-var shootAccuracy = 100;
+var maxShipSize         = 20;
+var maxShipAngle        = 70 * (Math.PI / 360);
+var shootAccuracy       = 100;
 
 var BOSS1 = 1;
 var BOSS2 = 2;
@@ -15,32 +16,42 @@ var asteroids, enemies, enemy, asteroid,
 
 // Enemyklasse
 // Hier nichts direkt aufrufen, Aufrufe werden ueber Bot.js geregelt
-// (Ausnahme: Collision soll auf onCollisionDetect zugreifen)
+// (Ausnahme: Collision soll auf collide zugreifen)
 function Enemy(location, speed, level, typ) {
     // TODO: unterschiedliche Enemies
 
     // Waffe setzen und Groesse aendern
     // TODO: weaponguard
-    switch (typ) {
-        case BOSS1:
+    switch(typ) {
+        case "BOSS1":
             geometryB = fileLoader.get("EnemyShipOne");
             this.weapon = 1;
+            this.scale.set(20,20,20);
+            this.HP = 20;
             break;
-        case BOSS2:
+        case "BOSS2":
             geometryB = fileLoader.get("EnemyShipOne");
             this.weapon = 1;
+            this.scale.set(25,25,25);
+            this.HP = 20;
             break;
-        case SMALL1:
+        case "SMALL1":
             geometryB = fileLoader.get("EnemyShipOne");
             this.weapon = 1;
+            this.scale.set(20,20,20);
+            this.HP = 10;
             break;
-        case SMALL2:
+        case "SMALL2":
             geometryB = fileLoader.get("EnemyShipOne");
             this.weapon = 1;
+            this.scale.set(20,20,20);
+            this.HP = 10;
             break;
         default:
             geometryB = fileLoader.get("EnemyShipOne");
             this.weapon = 1;
+            this.scale.set(20,20,20);
+            this.HP = 10;
     }
 
 
@@ -50,17 +61,17 @@ function Enemy(location, speed, level, typ) {
 
     // Mesh setzen
     THREE.Mesh.call(this, geometryB,
-        new THREE.MeshPhongMaterial({ map: textureB }));
+                    new THREE.MeshPhongMaterial({map: textureB}));
 
     MATH = MATHX();
 
-    this.speed = speed;
-    this.position.set(location.x, location.y, location.z);
-    this.scale.set(10, 10, 10);
-    this.level = level;
-    this.isAlive = true;
-    this.onPlayerAttack = false;
-    this.delta = 0;
+    this.speed      = speed;
+    this.position.set(location.x,location.y,location.z);
+    this.level      = level;
+    this.isAlive    = true;
+    this.onPlayerAttack  = false;
+    this.delta      = 0;
+    this.respawn    = false;
 
     // Initialen Ausrichtungsvektor
     this.lookAt(ship.position);
@@ -71,15 +82,13 @@ function Enemy(location, speed, level, typ) {
 
     this.oldDir = MATH.clone(this.direction);
 
-    // Listen updaten
-    bot = Bot();
-    asteroids = bot.getAsteroids();
-    enemies = bot.getEnemies();
-
     // Spieler-Richtung
     this.playerDirection = new THREE.Vector3(0, 0, 0);
     this.oldPlayerLocation = MATH.clone(ship.position);
     this.oldPlayerDir = MATH.clone(ship.position);
+
+    // HitBox
+    this.hitBox = this.getHitBox();
 
 }
 
@@ -207,6 +216,8 @@ Enemy.prototype.move = function (delta, asteroids, enemies) {
     dir.normalize();
     this.oldDir = MATH.clone(dir);
 
+    this.hitBox.position.set(this.position);
+
 }
 
 
@@ -333,8 +344,8 @@ Enemy.prototype.collectObstacles = function (optimalDir, delta) {
         if (d <= minObstacleDistance) { // nahe (in Bezug auf Distanz zum Player)
             possibleObstacle = true;
             distanceToShip = asteroid.position.distanceTo(shipPosition);
-            if (distanceToShip <= minObstacleDistance) { // nahe an this
-                obstacles.push(asteroid);
+            if(distanceToShip <= minObstacleDistance) { // nahe an this
+                obstacles.push(asteroid.getObstacleHitBox());
             }
         } else if (possibleObstacle && d > minObstacleDistance) {
             possibleObstacle = false;
@@ -347,15 +358,14 @@ Enemy.prototype.collectObstacles = function (optimalDir, delta) {
         d = enemy.position.distanceTo(ship.position) - shipDistance;
         if (d <= 0 && d <= minObstacleDistance) { // nahe und vor einem
             distanceToShip = enemy.position.distanceTo(shipPosition);
-            if (distanceToShip <= minObstacleDistance && enemy != this) { // nahe an this
-                obstacles.push(enemy);
+            if(distanceToShip <= minObstacleDistance && enemy!=this) { // nahe an this
+                obstacles.push(enemy.getObstacleHitBox());
             }
         } else if (possibleObstacle && d > minObstacleDistance) {
             // nach Sortierung wieder zu weit entfernt oder hinter enemy
             possibleObstacle = false;
             break;
         }
-
     }
 
     return obstacles;
@@ -392,23 +402,6 @@ Enemy.prototype.shoot = function (aimPosition) {
 
     // TODO: Shoot von Weapon aufrufen von this.position nach futurePosition
 
-
-}
-
-
-Enemy.prototype.onCollisionDetect = function (other, typ) {
-
-    // TODO:
-    // falls Schiff getroffen:
-    if (other instanceof Enemy) {
-        //       this = bot.createEnemy(level);
-    }
-    // Asteroid, Schiff, Schuss von Gegner ? -> neu setzen
-    // Schuss vom Spieler ? -> explodieren
-
-    // nutze die Methoden {asteroid,enemy}.onCollisionDetect(other)
-
-    // gebe "Ueberlebende" zurueck
 }
 
 
@@ -827,4 +820,94 @@ Enemy.prototype.updatePlayerDirection = function () {
 
     this.playerDirection = dir;
     this.oldPlayerLocation = ship.position;
+}
+
+
+Enemy.prototype.getObstacleHitBox = function() {
+    var mesh, geometry, material;
+
+    var radius = maxShipSize; // <- aendern
+    geometry = new THREE.SphereGeometry(radius,32,32);
+
+    material = new THREE.MeshBasicMaterial({
+        transparent : true,
+        opacity     : 0.5,
+        color       : 0xffffff
+    });
+
+    mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(this.position);
+
+    return mesh;
+}
+
+Enemy.prototype.getObstacleProjectilesHitBox = function() {
+    var projectileSize = 10;
+
+    var mesh, geometry, material;
+
+    geometry = new THREE.SphereGeometry(projectileSize,32,32);
+
+    material = new THREE.MeshBasicMaterial({
+        transparent : true,
+        opacity     : 0.5,
+        color       : 0xffffff
+    });
+
+    mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(this.position);
+
+    return mesh;
+}
+
+// TODO : implement functions
+
+Enemy.prototype.getHitBox = function() {
+    var mesh, geometry, material;
+
+    // TODO: (besser) spezifizieren
+    geometry = new THREE.BoxGeometry(this.scale.x, this.scale.y, this.scale.z);
+
+    material = new THREE.MeshBasicMaterial({
+        transparent : true,
+        opacity     : 0.2,
+        color       : 0xffffff
+    });
+
+    mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(this.position);
+
+    return mesh;
+}
+
+// TODO: spezifizieren
+Enemy.prototype.collide = function(other, type) {
+    switch(type) {
+        case "ASTEROID": case "asteroid": case "Asteroid":
+
+            break;
+        case "SHIP": case "ship": case "Ship":
+
+            break;
+        case "PLAYER": case "player": case "Player":
+
+            break;
+        case "LASER": case "laser": case "Laser":
+            this.HP -= laserDamage;
+            break;
+        case "ROCKET": case "rocket": case "Rocket":
+            this.HP -= rocketDamage;
+            break;
+        case "EXPLOSION": case "explosion": case "Explosion":
+
+            break;
+        case "MACHINEGUN": case "machinegun": case "Machinegun":
+
+            break;
+        default: console.log("Error: Collision with unknown");
+    }
+
+    if(this.HP <= 0) {
+        this.isAlive = false;
+    }
 }
