@@ -169,7 +169,7 @@ $(function () {
     }
 
     function loadHighscore() {
-        network.loadTop10(function (highscore) {
+        network.getTop10(function (highscore) {
             for (var i = 0; i < highscore.length; i++) {
                 var score = highscore[i];
                 var tableTag =

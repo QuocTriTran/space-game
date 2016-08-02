@@ -94,7 +94,7 @@ function init() {
     world = World();
     world.init();
 
-    starfield = new StarfieldParticleRenderer();
+    starfield = new Starfield();
 
     createAsteroids();
 
